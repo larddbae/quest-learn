@@ -1,89 +1,178 @@
 @extends('layouts.base')
 
 @section('content')
-<div class="flex min-h-screen">
-    {{-- Sidebar --}}
-    <aside class="pixel-sidebar w-64 flex-shrink-0" id="sidebar">
-        <div class="p-4 border-b-4 border-black">
-            <a href="{{ route('student.dashboard') }}" class="block">
-                <h1 class="font-pixel text-pixel-gold text-xs leading-relaxed">⚔️ QUEST<br>LEARN</h1>
-            </a>
+{{-- ============================================
+     TOP NAVIGATION BAR
+     ============================================ --}}
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-20 bg-background border-b-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]" id="student-topnav">
+    {{-- Brand --}}
+    <div class="flex items-center gap-4">
+        <a href="{{ route('student.dashboard') }}" class="text-2xl font-black text-primary-container drop-shadow-[4px_4px_0px_rgba(0,0,0,1)] font-headline uppercase tracking-wider">
+            QUESTLEARN
+        </a>
+    </div>
+
+    {{-- Desktop Nav Links --}}
+    <div class="hidden md:flex items-center gap-8 font-headline uppercase tracking-wider text-xs">
+        <a href="{{ route('student.dashboard') }}"
+           class="pixel-nav-link {{ request()->routeIs('student.dashboard') ? 'active' : '' }}">
+            HOME
+        </a>
+        <a href="{{ route('student.subjects.index') }}"
+           class="pixel-nav-link {{ request()->routeIs('student.subjects.*') ? 'active' : '' }}">
+            SUBJECTS
+        </a>
+        <a href="{{ route('student.leaderboard') }}"
+           class="pixel-nav-link {{ request()->routeIs('student.leaderboard') ? 'active' : '' }}">
+            LEADERBOARD
+        </a>
+        <a href="{{ route('student.profile') }}"
+           class="pixel-nav-link {{ request()->routeIs('student.profile') ? 'active' : '' }}">
+            PROFILE
+        </a>
+    </div>
+
+    {{-- Right Actions: notifications, settings, avatar --}}
+    <div class="flex items-center gap-4">
+        <button class="text-primary-container p-2 hover:bg-surface-container transition-colors" title="Notifications">
+            <span class="material-symbols-outlined">notifications</span>
+        </button>
+        <button class="text-primary-container p-2 hover:bg-surface-container transition-colors md:hidden"
+                onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+                title="Menu">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+        <div class="w-10 h-10 border-2 border-black bg-surface-container-high flex items-center justify-center overflow-hidden" title="{{ auth()->user()->name }}">
+            <span class="material-symbols-outlined text-primary-container text-2xl" style="font-variation-settings: 'FILL' 1;">person</span>
         </div>
+    </div>
+</nav>
 
-        <nav class="py-2">
-            <a href="{{ route('student.dashboard') }}"
-               class="pixel-sidebar-link {{ request()->routeIs('student.dashboard') ? 'active' : '' }}">
-                🏠 Dashboard
-            </a>
-            <a href="{{ route('student.subjects.index') }}"
-               class="pixel-sidebar-link {{ request()->routeIs('student.subjects.*') ? 'active' : '' }}">
-                📚 Subject Hub
-            </a>
-            <a href="{{ route('student.quest-board') }}"
-               class="pixel-sidebar-link {{ request()->routeIs('student.quest-board') || request()->routeIs('student.quests.*') ? 'active' : '' }}">
-                🗺️ Quest Board
-            </a>
-            <a href="{{ route('student.learning-room') }}"
-               class="pixel-sidebar-link {{ request()->routeIs('student.learning-room') || request()->routeIs('student.materials.*') ? 'active' : '' }}">
-                📜 Learning Room
-            </a>
-            <a href="{{ route('student.quiz-arena') }}"
-               class="pixel-sidebar-link {{ request()->routeIs('student.quiz-arena') || request()->routeIs('student.quizzes.*') ? 'active' : '' }}">
-                ⚔️ Quiz Arena
-            </a>
-            <a href="{{ route('student.profile') }}"
-               class="pixel-sidebar-link {{ request()->routeIs('student.profile') ? 'active' : '' }}">
-                🎒 Profile & Inventory
-            </a>
-            <a href="{{ route('student.leaderboard') }}"
-               class="pixel-sidebar-link {{ request()->routeIs('student.leaderboard') ? 'active' : '' }}">
-                🏆 Leaderboard
-            </a>
-        </nav>
+{{-- ============================================
+     MOBILE MENU (hidden by default)
+     ============================================ --}}
+<div id="mobile-menu" class="hidden fixed top-20 left-0 w-full bg-surface-container-low border-b-4 border-black z-40 md:hidden">
+    <nav class="flex flex-col py-2">
+        <a href="{{ route('student.dashboard') }}"
+           class="pixel-sidebar-link {{ request()->routeIs('student.dashboard') ? 'active' : '' }}">
+            <span class="material-symbols-outlined text-lg">home</span> Dashboard
+        </a>
+        <a href="{{ route('student.subjects.index') }}"
+           class="pixel-sidebar-link {{ request()->routeIs('student.subjects.*') ? 'active' : '' }}">
+            <span class="material-symbols-outlined text-lg">menu_book</span> Subject Hub
+        </a>
+        <a href="{{ route('student.quest-board') }}"
+           class="pixel-sidebar-link {{ request()->routeIs('student.quest-board') || request()->routeIs('student.quests.*') ? 'active' : '' }}">
+            <span class="material-symbols-outlined text-lg">explore</span> Quest Board
+        </a>
+        <a href="{{ route('student.learning-room') }}"
+           class="pixel-sidebar-link {{ request()->routeIs('student.learning-room') || request()->routeIs('student.materials.*') ? 'active' : '' }}">
+            <span class="material-symbols-outlined text-lg">auto_stories</span> Learning Room
+        </a>
+        <a href="{{ route('student.quiz-arena') }}"
+           class="pixel-sidebar-link {{ request()->routeIs('student.quiz-arena') || request()->routeIs('student.quizzes.*') ? 'active' : '' }}">
+            <span class="material-symbols-outlined text-lg">swords</span> Quiz Arena
+        </a>
+        <a href="{{ route('student.profile') }}"
+           class="pixel-sidebar-link {{ request()->routeIs('student.profile') ? 'active' : '' }}">
+            <span class="material-symbols-outlined text-lg">person</span> Profile
+        </a>
+        <a href="{{ route('student.leaderboard') }}"
+           class="pixel-sidebar-link {{ request()->routeIs('student.leaderboard') ? 'active' : '' }}">
+            <span class="material-symbols-outlined text-lg">trophy</span> Leaderboard
+        </a>
 
-        {{-- Player Mini Status --}}
-        <div class="mt-auto p-4 border-t-4 border-black">
-            <div class="text-center">
-                <div class="text-4xl mb-2">{{ auth()->user()->avatar ?? '🧙' }}</div>
-                <p class="font-pixel text-[9px] text-pixel-text truncate">{{ auth()->user()->name }}</p>
-                <p class="font-pixel-body text-lg text-pixel-gold mt-1">LVL {{ auth()->user()->level }}</p>
-                <span class="rank-badge rank-{{ strtolower(auth()->user()->rank) }} mt-1" style="font-size: 8px;">
-                    {{ auth()->user()->rank }}
-                </span>
+        {{-- Player Mini Status (mobile) --}}
+        <div class="border-t-4 border-black mt-2 pt-3 px-4 flex items-center gap-3">
+            <div class="w-10 h-10 border-2 border-black bg-surface-container-high flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary-container text-xl" style="font-variation-settings: 'FILL' 1;">person</span>
             </div>
+            <div>
+                <p class="font-headline text-[9px] text-on-surface truncate">{{ auth()->user()->name }}</p>
+                <p class="font-headline text-[8px] text-primary-container">LVL {{ auth()->user()->level }}</p>
+            </div>
+            <span class="rank-badge rank-{{ strtolower(auth()->user()->rank) }} ml-auto" style="font-size: 8px;">
+                {{ auth()->user()->rank }}
+            </span>
         </div>
 
-        {{-- Logout --}}
-        <div class="p-4 border-t-2 border-white/10">
+        {{-- Logout (mobile) --}}
+        <div class="border-t-2 border-outline-variant mt-2 pt-2 px-2">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="pixel-sidebar-link w-full text-left text-pixel-red hover:text-pixel-red">
-                    🚪 Logout
+                <button type="submit" class="pixel-sidebar-link w-full text-left text-error hover:text-error">
+                    <span class="material-symbols-outlined text-lg">logout</span> Logout
                 </button>
             </form>
         </div>
-    </aside>
+    </nav>
+</div>
 
-    {{-- Main Content --}}
-    <main class="flex-1 p-6 overflow-y-auto">
-        {{-- Mobile Menu Button --}}
-        <button onclick="document.getElementById('sidebar').classList.toggle('open')"
-                class="md:hidden pixel-btn pixel-btn-gold pixel-btn-sm mb-4">
-            ☰ MENU
-        </button>
+{{-- ============================================
+     MAIN CONTENT AREA
+     ============================================ --}}
+<main class="pt-24 pb-20 px-6 max-w-[1400px] mx-auto">
+    {{-- Flash Messages --}}
+    @if(session('success'))
+        <div class="pixel-alert pixel-alert-success flex items-center gap-3">
+            <span class="material-symbols-outlined">check_circle</span>
+            {{ session('success') }}
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="pixel-alert pixel-alert-error flex items-center gap-3">
+            <span class="material-symbols-outlined">error</span>
+            {{ session('error') }}
+        </div>
+    @endif
+    @if(session('info'))
+        <div class="pixel-alert pixel-alert-info flex items-center gap-3">
+            <span class="material-symbols-outlined">info</span>
+            {{ session('info') }}
+        </div>
+    @endif
 
-        {{-- Flash Messages --}}
-        @if(session('success'))
-            <div class="pixel-alert pixel-alert-success">{{ session('success') }}</div>
-        @endif
-        @if(session('error'))
-            <div class="pixel-alert pixel-alert-error">{{ session('error') }}</div>
-        @endif
-        @if(session('info'))
-            <div class="pixel-alert pixel-alert-info">{{ session('info') }}</div>
-        @endif
+    @yield('main')
+</main>
 
-        @yield('main')
-    </main>
+{{-- ============================================
+     BOTTOM ACTION BAR (RPG Command Menu)
+     ============================================ --}}
+<footer class="fixed bottom-0 w-full h-16 bg-surface-container-low border-t-4 border-black flex justify-center items-center gap-6 sm:gap-12 z-40 px-6">
+    <a href="{{ route('student.profile') }}"
+       class="flex items-center gap-2 font-headline text-[10px] cursor-pointer transition-colors {{ request()->routeIs('student.profile') ? 'text-primary-container' : 'text-on-surface hover:text-primary-container' }}">
+        <span class="material-symbols-outlined">person</span>
+        <span class="hidden sm:inline">CHARACTER</span>
+    </a>
+    <a href="{{ route('student.learning-room') }}"
+       class="flex items-center gap-2 font-headline text-[10px] cursor-pointer transition-colors {{ request()->routeIs('student.learning-room') || request()->routeIs('student.materials.*') ? 'text-primary-container' : 'text-on-surface hover:text-primary-container' }}">
+        <span class="material-symbols-outlined">backpack</span>
+        <span class="hidden sm:inline">INVENTORY</span>
+    </a>
+    <a href="{{ route('student.quest-board') }}"
+       class="flex items-center gap-2 font-headline text-[10px] cursor-pointer transition-colors {{ request()->routeIs('student.quest-board') || request()->routeIs('student.quests.*') ? 'text-primary-container' : 'text-on-surface hover:text-primary-container' }}">
+        <span class="material-symbols-outlined">map</span>
+        <span class="hidden sm:inline">WORLD_MAP</span>
+    </a>
+    <a href="{{ route('student.quiz-arena') }}"
+       class="flex items-center gap-2 font-headline text-[10px] cursor-pointer transition-colors {{ request()->routeIs('student.quiz-arena') || request()->routeIs('student.quizzes.*') ? 'text-primary-container' : 'text-on-surface hover:text-primary-container' }}">
+        <span class="material-symbols-outlined">storefront</span>
+        <span class="hidden sm:inline">MARKET</span>
+    </a>
+    <a href="{{ route('student.subjects.index') }}"
+       class="flex items-center gap-2 font-headline text-[10px] cursor-pointer transition-colors {{ request()->routeIs('student.subjects.*') ? 'text-primary-container' : 'text-on-surface hover:text-primary-container' }}">
+        <span class="material-symbols-outlined">groups</span>
+        <span class="hidden sm:inline">GUILD</span>
+    </a>
+</footer>
+
+{{-- ============================================
+     DECORATIVE ELEMENTS
+     ============================================ --}}
+{{-- Subtle HUD Telemetry (visible only on ultra-wide) --}}
+<div class="fixed top-24 left-6 pointer-events-none opacity-20 hidden 2xl:block z-10">
+    <span class="font-headline text-[8px] text-primary-container block mb-2">SYS_STABILITY: NOMINAL</span>
+    <span class="font-headline text-[8px] text-secondary-container block mb-2">CONNECTION: ENCRYPTED</span>
+    <span class="font-headline text-[8px] text-[#3a86ff] block">UPTIME: 04:22:12</span>
 </div>
 @endsection

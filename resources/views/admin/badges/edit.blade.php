@@ -1,47 +1,111 @@
 @extends('layouts.admin')
+
 @section('title', 'Edit Badge')
+
 @section('main')
-<div class="max-w-2xl mx-auto">
-    <a href="{{ route('admin.badges.index') }}" class="font-pixel text-[9px] text-pixel-text-muted hover:text-pixel-gold mb-4 inline-block">◀ BADGE FORGE</a>
-    <div class="pixel-box p-8">
-        <h1 class="font-pixel text-sm text-pixel-gold mb-6 text-center">✏️ EDIT BADGE</h1>
-        <form method="POST" action="{{ route('admin.badges.update', $badge) }}" enctype="multipart/form-data">
-            @csrf @method('PUT')
-            <div class="mb-5">
-                <label class="pixel-label">🏅 Badge Name</label>
-                <input type="text" name="name" value="{{ old('name', $badge->name) }}" required class="pixel-input">
-            </div>
-            <div class="mb-5">
-                <label class="pixel-label">📝 Description</label>
-                <textarea name="description" class="pixel-textarea" required>{{ old('description', $badge->description) }}</textarea>
-            </div>
-            <div class="grid grid-cols-2 gap-4 mb-5">
-                <div>
-                    <label class="pixel-label">📊 Criteria Type</label>
-                    <select name="criteria_type" required class="pixel-select">
-                        <option value="quests_completed" {{ old('criteria_type', $badge->criteria_type) === 'quests_completed' ? 'selected' : '' }}>Quests Completed</option>
-                        <option value="perfect_score" {{ old('criteria_type', $badge->criteria_type) === 'perfect_score' ? 'selected' : '' }}>Perfect Scores</option>
-                        <option value="xp_earned" {{ old('criteria_type', $badge->criteria_type) === 'xp_earned' ? 'selected' : '' }}>XP Earned</option>
-                        <option value="level_reached" {{ old('criteria_type', $badge->criteria_type) === 'level_reached' ? 'selected' : '' }}>Level Reached</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="pixel-label"># Value</label>
-                    <input type="number" name="criteria_value" value="{{ old('criteria_value', $badge->criteria_value) }}" required class="pixel-input" min="1">
-                </div>
-            </div>
-            <div class="mb-6">
-                <label class="pixel-label">🖼️ Icon (Pixel Art PNG)</label>
-                @if($badge->icon_path)
-                    <div class="mb-2">
-                        <img src="{{ asset('storage/' . $badge->icon_path) }}" alt="{{ $badge->name }}" class="w-16 h-16 pixel-image">
-                    </div>
-                @endif
-                <input type="file" name="icon" accept="image/*" class="pixel-input">
-                <p class="font-pixel text-[8px] text-pixel-text-muted mt-1">Leave empty to keep current icon.</p>
-            </div>
-            <button type="submit" class="pixel-btn pixel-btn-gold w-full">💾 SAVE CHANGES</button>
-        </form>
+<div class="max-w-3xl mx-auto pb-12">
+    {{-- Breadcrumb --}}
+    <div class="mb-6">
+        <a href="{{ route('admin.badges.index') }}" class="inline-flex items-center gap-2 font-headline text-[0.6rem] text-surface-variant hover:text-primary-container transition-colors uppercase">
+            <span class="material-symbols-outlined text-sm">arrow_back</span>
+            ABORT MODIFICATION
+        </a>
     </div>
+
+    {{-- Form Container --}}
+    <x-pixel-card variant="low" padding="xl" class="border-t-8 border-t-gold text-on-surface">
+        <div class="flex items-center justify-between gap-3 mb-8 border-b-4 border-outline-variant pb-6">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-[#ffd700] text-4xl" style="font-variation-settings: 'FILL' 1;">edit_square</span>
+                <h1 class="font-headline text-xl text-on-surface uppercase">REFORGE BADGE</h1>
+            </div>
+            @if($badge->icon_path)
+                <div class="w-16 h-16 bg-surface-container-high border-4 border-black hidden sm:flex items-center justify-center p-2 shadow-[2px_2px_0_0_#000]">
+                    <img src="{{ asset('storage/' . $badge->icon_path) }}" alt="{{ $badge->name }}" class="w-full h-full object-contain">
+                </div>
+            @endif
+        </div>
+
+        <form method="POST" action="{{ route('admin.badges.update', $badge) }}" enctype="multipart/form-data" class="space-y-6">
+            @csrf @method('PUT')
+
+            {{-- Badge Name --}}
+            <div class="space-y-2">
+                <label class="block font-headline text-[0.7rem] text-[#ffd700] uppercase flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">workspace_premium</span> Badge Identity (Name)
+                </label>
+                <input type="text" name="name" value="{{ old('name', $badge->name) }}" required
+                       class="w-full bg-surface-container-lowest border-4 border-black p-4 text-on-surface font-body text-xl focus:ring-0 focus:border-[#ffd700] transition-colors outline-none placeholder:text-surface-variant">
+                @error('name') 
+                    <div class="flex items-center gap-1 mt-1 text-error">
+                        <span class="material-symbols-outlined text-sm">warning</span>
+                        <p class="font-headline text-[0.55rem] uppercase">{{ $message }}</p> 
+                    </div>
+                @enderror
+            </div>
+
+            {{-- Description --}}
+            <div class="space-y-2">
+                <label class="block font-headline text-[0.7rem] text-[#ffd700] uppercase flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">notes</span> Lore / Requirements (Description)
+                </label>
+                <textarea name="description" rows="3" required
+                          class="w-full bg-surface-container-lowest border-4 border-black p-4 text-on-surface font-body text-xl focus:ring-0 focus:border-[#ffd700] transition-colors outline-none resize-y">{{ old('description', $badge->description) }}</textarea>
+            </div>
+
+            {{-- Logic / Requirements Grid --}}
+            <div class="bg-surface-container-high border-4 border-black p-6 space-y-6 relative overflow-hidden">
+                <div class="absolute inset-0 bg-primary-container/5 dithered-bg pointer-events-none opacity-50"></div>
+                
+                <h3 class="font-headline text-[0.6rem] text-primary-container uppercase relative z-10 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">data_object</span> System Requirements
+                </h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-10">
+                    <div>
+                        <label class="block font-headline text-[0.6rem] text-on-surface uppercase mb-2">CRITERIA TYPE</label>
+                        <select name="criteria_type" required 
+                                class="w-full bg-surface-container-lowest border-4 border-black p-3 text-on-surface font-body text-xl focus:ring-0 focus:border-[#ffd700] outline-none appearance-none cursor-pointer">
+                            <option value="quests_completed" {{ old('criteria_type', $badge->criteria_type) === 'quests_completed' ? 'selected' : '' }}>Quests Completed</option>
+                            <option value="perfect_score" {{ old('criteria_type', $badge->criteria_type) === 'perfect_score' ? 'selected' : '' }}>Perfect Scores</option>
+                            <option value="xp_earned" {{ old('criteria_type', $badge->criteria_type) === 'xp_earned' ? 'selected' : '' }}>XP Earned</option>
+                            <option value="level_reached" {{ old('criteria_type', $badge->criteria_type) === 'level_reached' ? 'selected' : '' }}>Level Reached</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-headline text-[0.6rem] text-on-surface uppercase mb-2">TARGET VALUE (N)</label>
+                        <input type="number" name="criteria_value" value="{{ old('criteria_value', $badge->criteria_value) }}" required min="1"
+                               class="w-full bg-surface-container-lowest border-4 border-black p-3 text-primary-container font-headline focus:ring-0 focus:border-[#ffd700] outline-none">
+                    </div>
+                </div>
+            </div>
+
+            {{-- File Upload --}}
+            <div class="space-y-2">
+                <label class="block font-headline text-[0.7rem] text-[#ffd700] uppercase flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">image</span> Replace Sprite (Icon PNG)
+                </label>
+
+                <div class="relative bg-surface-container-lowest border-4 border-black p-6 hover:bg-surface-container transition-colors group">
+                    <input type="file" name="icon" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                    <div class="flex flex-col items-center justify-center text-center">
+                        <span class="material-symbols-outlined text-surface-variant text-4xl mb-2 group-hover:text-primary-container group-hover:animate-bounce transition-colors">cloud_upload</span>
+                        <p class="font-headline text-[0.6rem] text-on-surface mb-1 uppercase">Upload new image to replace current sprite</p>
+                        <p class="font-body text-sm text-on-surface-variant">Leave empty to keep the existing artwork.</p>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Actions --}}
+            <div class="pt-6 border-t-4 border-outline-variant flex flex-col sm:flex-row gap-4 justify-end mt-8">
+                <x-pixel-button variant="ghost" size="lg" href="{{ route('admin.badges.index') }}" icon="close" class="sm:flex-1 text-center">
+                    CANCEL
+                </x-pixel-button>
+                <x-pixel-button variant="gold" type="submit" size="lg" icon="save" class="sm:flex-1">
+                    COMMIT_REFORGE
+                </x-pixel-button>
+            </div>
+        </form>
+    </x-pixel-card>
 </div>
 @endsection

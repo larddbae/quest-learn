@@ -1,47 +1,134 @@
+/* ============================================
+   QUESTLEARN — NEOBRUTALISM / PIXEL ART DESIGN SYSTEM
+   Material Design 3 Token-Based Color Palette
+   Tailwind CSS v4 @theme Configuration
+   ============================================ */
+
 /* Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Silkscreen:wght@400;700&display=swap');
 
 @import "tailwindcss";
 
 /* ============================================
-   QUESTLEARN — 8-BIT PIXEL ART DESIGN SYSTEM
+   @THEME — Design Tokens
    ============================================ */
 
-/* Custom Theme */
 @theme {
-    --color-pixel-gold: #FFD700;
-    --color-pixel-gold-dark: #CC9900;
-    --color-pixel-green: #39FF14;
-    --color-pixel-green-dark: #28B00E;
-    --color-pixel-red: #FF3131;
-    --color-pixel-red-dark: #CC1A1A;
-    --color-pixel-blue: #4169E1;
-    --color-pixel-blue-dark: #2B4BA0;
-    --color-pixel-purple: #9B59B6;
-    --color-pixel-cyan: #00E5FF;
-    --color-pixel-orange: #FF8C00;
-    --color-pixel-pink: #FF69B4;
+    /* ---- Material 3 Surface Colors ---- */
+    --color-surface: #10102e;
+    --color-surface-dim: #10102e;
+    --color-surface-bright: #363656;
+    --color-surface-container-lowest: #0a0a28;
+    --color-surface-container-low: #181836;
+    --color-surface-container: #1c1c3b;
+    --color-surface-container-high: #272746;
+    --color-surface-container-highest: #323251;
+    --color-surface-variant: #323251;
+    --color-surface-tint: #e9c400;
+    --color-background: #10102e;
 
-    --color-pixel-bg: #1a1a2e;
-    --color-pixel-bg-light: #16213e;
-    --color-pixel-surface: #0f3460;
-    --color-pixel-surface-light: #1a4a7a;
-    --color-pixel-text: #E8E8E8;
-    --color-pixel-text-muted: #9BA4B5;
+    /* ---- Primary (Gold) ---- */
+    --color-primary: #fff6df;
+    --color-primary-container: #ffd700;
+    --color-primary-fixed: #ffe16d;
+    --color-primary-fixed-dim: #e9c400;
+    --color-on-primary: #3a3000;
+    --color-on-primary-container: #705e00;
+    --color-on-primary-fixed: #221b00;
+    --color-on-primary-fixed-variant: #544600;
+    --color-inverse-primary: #705d00;
+
+    /* ---- Secondary (Neon Green) ---- */
+    --color-secondary: #d7ffc5;
+    --color-secondary-container: #2ff801;
+    --color-secondary-fixed: #79ff5b;
+    --color-secondary-fixed-dim: #2ae500;
+    --color-on-secondary: #053900;
+    --color-on-secondary-container: #0f6d00;
+    --color-on-secondary-fixed: #022100;
+    --color-on-secondary-fixed-variant: #095300;
+
+    /* ---- Tertiary (Blue) ---- */
+    --color-tertiary: #f5f6ff;
+    --color-tertiary-container: #cbdaff;
+    --color-tertiary-fixed: #d8e2ff;
+    --color-tertiary-fixed-dim: #adc6ff;
+    --color-on-tertiary: #002e69;
+    --color-on-tertiary-container: #005bc3;
+    --color-on-tertiary-fixed: #001a41;
+    --color-on-tertiary-fixed-variant: #004494;
+
+    /* ---- Error ---- */
+    --color-error: #ffb4ab;
+    --color-error-container: #93000a;
+    --color-on-error: #690005;
+    --color-on-error-container: #ffdad6;
+
+    /* ---- On-Surface / Text ---- */
+    --color-on-surface: #e2dfff;
+    --color-on-surface-variant: #d0c6ab;
+    --color-on-background: #e2dfff;
+    --color-inverse-surface: #e2dfff;
+    --color-inverse-on-surface: #2d2d4c;
+
+    /* ---- Outline ---- */
+    --color-outline: #999077;
+    --color-outline-variant: #4d4732;
+
+    /* ---- Legacy / Backward-Compatible Aliases ---- */
+    --color-pixel-gold: #ffd700;
+    --color-pixel-gold-dark: #e9c400;
+    --color-pixel-green: #2ff801;
+    --color-pixel-green-dark: #2ae500;
+    --color-pixel-red: #ffb4ab;
+    --color-pixel-red-dark: #93000a;
+    --color-pixel-blue: #3a86ff;
+    --color-pixel-blue-dark: #004494;
+    --color-pixel-purple: #adc6ff;
+    --color-pixel-cyan: #cbdaff;
+    --color-pixel-orange: #e9c400;
+    --color-pixel-pink: #ffdad6;
+
+    --color-pixel-bg: #10102e;
+    --color-pixel-bg-light: #181836;
+    --color-pixel-surface: #1c1c3b;
+    --color-pixel-surface-light: #272746;
+    --color-pixel-text: #e2dfff;
+    --color-pixel-text-muted: #d0c6ab;
     --color-pixel-border: #000000;
 
+    /* ---- Font Families ---- */
+    --font-headline: 'Press Start 2P', cursive;
+    --font-body: 'VT323', monospace;
+    --font-label: 'Press Start 2P', cursive;
     --font-pixel: 'Press Start 2P', monospace;
     --font-pixel-body: 'VT323', monospace;
     --font-pixel-alt: 'Silkscreen', monospace;
+
+    /* ---- Border Radius (Pixel = no rounding) ---- */
+    --radius: 0px;
+    --radius-lg: 0px;
+    --radius-xl: 0px;
 }
 
-/* Base Styles */
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
 body {
-    font-family: var(--font-pixel-body);
-    background-color: var(--color-pixel-bg);
-    color: var(--color-pixel-text);
+    font-family: var(--font-body);
+    background-color: var(--color-background);
+    color: var(--color-on-surface);
     font-size: 18px;
     line-height: 1.6;
+    image-rendering: pixelated;
+    -webkit-font-smoothing: none;
+}
+
+/* Selection styling */
+::selection {
+    background-color: var(--color-primary-container);
+    color: var(--color-on-primary-container);
 }
 
 /* Heading Styles */
@@ -54,7 +141,17 @@ h1, h2, h3, h4, h5, h6,
     font-family: var(--font-pixel-body);
 }
 
-/* Background Pattern */
+/* Material Symbols Icon Font */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    image-rendering: pixelated;
+}
+
+/* ============================================
+   BACKGROUND EFFECTS
+   ============================================ */
+
+/* Grid Background Pattern */
 .pixel-grid-bg {
     background-image:
         linear-gradient(rgba(255 255 255 / 0.03) 1px, transparent 1px),
@@ -62,25 +159,140 @@ h1, h2, h3, h4, h5, h6,
     background-size: 16px 16px;
 }
 
+/* Dot Grid Background */
+.pixel-dot-bg {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* Dithered Background */
+.dithered-bg {
+    background-image: radial-gradient(#1c1c3b 2px, transparent 2px);
+    background-size: 8px 8px;
+}
+
+/* CRT Scanline Overlay */
+.scanline-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, 0.25) 50%
+    ),
+    linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 0.06),
+        rgba(0, 255, 0, 0.02),
+        rgba(0, 0, 255, 0.06)
+    );
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* Body Scanline Background (subtle) */
+.body-scanlines {
+    background-image: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+}
+
 /* ============================================
-   PIXEL ART COMPONENTS
+   PIXEL BORDER SYSTEM
    ============================================ */
 
-/* Pixel Box — chunky bordered containers */
+/* Standard pixel border — 4px black + block shadow */
+.pixel-border {
+    border: 4px solid #000000;
+    box-shadow: 4px 4px 0px 0px #000000;
+}
+
+/* Heavy pixel shadow (8px) */
+.pixel-shadow {
+    box-shadow: 4px 4px 0px 0px #000000;
+}
+
+.pixel-shadow-8 {
+    box-shadow: 8px 8px 0px 0px #000000;
+}
+
+/* Active press effect */
+.pixel-border-active:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0px 0px #000000;
+}
+
+/* Shadow-only active (for elements with inline box-shadow) */
+.pixel-shadow-active:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px 0px #000000;
+}
+
+/* Pixel border with 4-directional shadow */
+.pixel-border-4 {
+    box-shadow:
+        0 -4px 0 0 #000,
+        0 4px 0 0 #000,
+        -4px 0 0 0 #000,
+        4px 0 0 0 #000;
+}
+
+/* ============================================
+   PIXEL TEXT EFFECTS
+   ============================================ */
+
+/* Gold glow for hero headings */
+.pixel-glow {
+    text-shadow: 4px 4px 0px #000000, 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+/* Green terminal glow */
+.pixel-glow-green {
+    text-shadow: 4px 4px 0px #000000, 0 0 15px rgba(47, 248, 1, 0.4);
+}
+
+/* Box glow (for highlighted containers) */
+.pixel-box-glow {
+    box-shadow:
+        0 0 0 4px #000000,
+        0 0 0 8px #ffd700,
+        0 0 20px 4px #ffd700;
+}
+
+/* Active box glow (for focused inputs) */
+.active-box-glow {
+    box-shadow: 0 0 15px #ffd700;
+    border-color: #ffd700 !important;
+}
+
+/* ============================================
+   PIXEL BOX — Chunky Bordered Containers
+   ============================================ */
+
 .pixel-box {
     border: 4px solid var(--color-pixel-border);
     box-shadow: 4px 4px 0px rgba(0, 0, 0, 1);
-    background-color: var(--color-pixel-surface);
+    background-color: var(--color-surface-container);
     position: relative;
 }
 
 .pixel-box-light {
     border: 4px solid var(--color-pixel-border);
     box-shadow: 4px 4px 0px rgba(0, 0, 0, 1);
-    background-color: var(--color-pixel-surface-light);
+    background-color: var(--color-surface-container-high);
 }
 
-/* Pixel Button — block press effect */
+/* ============================================
+   PIXEL BUTTON — Block Press Effect
+   ============================================ */
+
 .pixel-btn {
     font-family: var(--font-pixel);
     font-size: 12px;
@@ -108,17 +320,25 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .pixel-btn-gold {
-    background-color: var(--color-pixel-gold);
+    background-color: var(--color-primary-container);
     color: #000;
+}
+
+.pixel-btn-gold:hover {
+    background-color: var(--color-primary-fixed);
 }
 
 .pixel-btn-green {
-    background-color: var(--color-pixel-green);
+    background-color: var(--color-secondary-container);
     color: #000;
 }
 
+.pixel-btn-green:hover {
+    background-color: var(--color-secondary-fixed);
+}
+
 .pixel-btn-red {
-    background-color: var(--color-pixel-red);
+    background-color: var(--color-error-container);
     color: #fff;
 }
 
@@ -128,8 +348,8 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .pixel-btn-purple {
-    background-color: var(--color-pixel-purple);
-    color: #fff;
+    background-color: var(--color-tertiary-fixed-dim);
+    color: #000;
 }
 
 .pixel-btn-sm {
@@ -144,27 +364,29 @@ h1, h2, h3, h4, h5, h6,
     transform: translate(3px, 3px);
 }
 
-/* Pixel Input */
+/* ============================================
+   PIXEL INPUT
+   ============================================ */
+
 .pixel-input {
     font-family: var(--font-pixel-body);
     font-size: 20px;
     border: 4px solid var(--color-pixel-border);
-    background-color: #0d1b2a;
-    color: var(--color-pixel-text);
-    padding: 12px 16px;
+    background-color: var(--color-surface-container-lowest);
+    color: var(--color-on-surface);
+    padding: 16px;
     outline: none;
     transition: border-color 0.2s;
     width: 100%;
-    box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.5);
 }
 
 .pixel-input:focus {
-    border-color: var(--color-pixel-gold);
-    box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 215, 0, 0.3);
+    border-color: var(--color-secondary-container);
+    ring: none;
 }
 
 .pixel-input::placeholder {
-    color: var(--color-pixel-text-muted);
+    color: var(--color-surface-variant);
     opacity: 0.7;
 }
 
@@ -173,8 +395,8 @@ h1, h2, h3, h4, h5, h6,
     font-family: var(--font-pixel-body);
     font-size: 20px;
     border: 4px solid var(--color-pixel-border);
-    background-color: #0d1b2a;
-    color: var(--color-pixel-text);
+    background-color: var(--color-surface-container-lowest);
+    color: var(--color-on-surface);
     padding: 12px 16px;
     outline: none;
     width: 100%;
@@ -187,25 +409,24 @@ h1, h2, h3, h4, h5, h6,
     font-family: var(--font-pixel-body);
     font-size: 20px;
     border: 4px solid var(--color-pixel-border);
-    background-color: #0d1b2a;
-    color: var(--color-pixel-text);
+    background-color: var(--color-surface-container-lowest);
+    color: var(--color-on-surface);
     padding: 12px 16px;
     outline: none;
     width: 100%;
     min-height: 120px;
     resize: vertical;
-    box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.5);
 }
 
 .pixel-textarea:focus {
-    border-color: var(--color-pixel-gold);
+    border-color: var(--color-secondary-container);
 }
 
 /* Pixel Label */
 .pixel-label {
     font-family: var(--font-pixel);
     font-size: 10px;
-    color: var(--color-pixel-gold);
+    color: var(--color-primary-container);
     text-transform: uppercase;
     letter-spacing: 1px;
     display: block;
@@ -213,12 +434,13 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* ============================================
-   XP BAR
+   XP BAR — Segmented Pixel Progress Bar
    ============================================ */
 
+/* Classic continuous bar */
 .xp-bar-container {
     border: 4px solid var(--color-pixel-border);
-    background-color: #0d1b2a;
+    background-color: var(--color-surface-container-lowest);
     height: 28px;
     position: relative;
     overflow: hidden;
@@ -226,7 +448,7 @@ h1, h2, h3, h4, h5, h6,
 
 .xp-bar-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--color-pixel-green-dark), var(--color-pixel-green));
+    background: var(--color-secondary-container);
     transition: width 0.5s ease;
     position: relative;
 }
@@ -239,6 +461,22 @@ h1, h2, h3, h4, h5, h6,
     right: 0;
     bottom: 50%;
     background: rgba(255, 255, 255, 0.2);
+}
+
+/* Segmented XP bar (new design) */
+.segmented-xp {
+    display: flex;
+    gap: 2px;
+}
+
+.xp-block {
+    height: 8px;
+    flex: 1;
+    background: var(--color-surface-container-low);
+}
+
+.xp-block.filled {
+    background: var(--color-secondary-container);
 }
 
 /* ============================================
@@ -267,7 +505,7 @@ h1, h2, h3, h4, h5, h6,
 .pixel-card {
     border: 4px solid var(--color-pixel-border);
     box-shadow: 4px 4px 0px rgba(0, 0, 0, 1);
-    background-color: var(--color-pixel-surface);
+    background-color: var(--color-surface-container);
     transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
@@ -299,13 +537,13 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .pixel-alert-success {
-    background-color: var(--color-pixel-green);
+    background-color: var(--color-secondary-container);
     color: #000;
 }
 
 .pixel-alert-error {
-    background-color: var(--color-pixel-red);
-    color: #fff;
+    background-color: var(--color-error-container);
+    color: var(--color-on-error-container);
 }
 
 .pixel-alert-info {
@@ -329,18 +567,18 @@ h1, h2, h3, h4, h5, h6,
 .pixel-table th {
     font-family: var(--font-pixel);
     font-size: 10px;
-    background-color: var(--color-pixel-surface);
+    background-color: var(--color-surface-container-high);
     padding: 12px 16px;
     text-align: left;
     text-transform: uppercase;
-    color: var(--color-pixel-gold);
+    color: var(--color-primary-container);
     border-bottom: 4px solid var(--color-pixel-border);
 }
 
 .pixel-table td {
     padding: 12px 16px;
     border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-    background-color: var(--color-pixel-bg-light);
+    background-color: var(--color-surface-container-low);
 }
 
 .pixel-table tr:last-child td {
@@ -348,7 +586,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .pixel-table tr:hover td {
-    background-color: var(--color-pixel-surface);
+    background-color: var(--color-surface-container);
 }
 
 /* ============================================
@@ -357,7 +595,7 @@ h1, h2, h3, h4, h5, h6,
 
 .quiz-option {
     border: 4px solid var(--color-pixel-border);
-    background-color: var(--color-pixel-surface);
+    background-color: var(--color-surface-container);
     padding: 16px 20px;
     cursor: pointer;
     transition: all 0.1s ease;
@@ -367,23 +605,23 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .quiz-option:hover {
-    background-color: var(--color-pixel-surface-light);
+    background-color: var(--color-surface-container-high);
     transform: translate(-2px, -2px);
     box-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
 }
 
 .quiz-option.selected {
-    border-color: var(--color-pixel-gold);
+    border-color: var(--color-primary-container);
     background-color: rgba(255, 215, 0, 0.15);
 }
 
 .quiz-option-correct {
-    border-color: var(--color-pixel-green) !important;
-    background-color: rgba(57, 255, 20, 0.15) !important;
+    border-color: var(--color-secondary-container) !important;
+    background-color: rgba(47, 248, 1, 0.15) !important;
 }
 
 .quiz-option-wrong {
-    border-color: var(--color-pixel-red) !important;
+    border-color: var(--color-error) !important;
     background-color: rgba(255, 49, 49, 0.15) !important;
 }
 
@@ -393,7 +631,7 @@ h1, h2, h3, h4, h5, h6,
 
 .pixel-sidebar {
     border-right: 4px solid var(--color-pixel-border);
-    background-color: var(--color-pixel-bg-light);
+    background-color: var(--color-surface-container-low);
     min-height: 100vh;
 }
 
@@ -404,21 +642,48 @@ h1, h2, h3, h4, h5, h6,
     display: flex;
     align-items: center;
     gap: 12px;
-    transition: background-color 0.1s;
-    color: var(--color-pixel-text-muted);
+    transition: all 0.075s ease;
+    color: var(--color-pixel-blue);
     text-decoration: none;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .pixel-sidebar-link:hover {
-    background-color: var(--color-pixel-surface);
-    color: var(--color-pixel-gold);
+    background-color: var(--color-surface-container-high);
+    color: #fff;
+    transform: translateX(1px);
 }
 
 .pixel-sidebar-link.active {
-    background-color: var(--color-pixel-surface);
-    color: var(--color-pixel-gold);
-    border-left: 4px solid var(--color-pixel-gold);
+    background-color: var(--color-surface-container-high);
+    color: var(--color-primary-container);
+    border-left: 4px solid var(--color-primary-container);
+    transform: translateX(1px);
+}
+
+/* ============================================
+   NAV BAR (Top Navigation)
+   ============================================ */
+
+.pixel-nav-link {
+    font-family: var(--font-pixel);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-pixel-blue);
+    transition: color 0.1s;
+    text-decoration: none;
+}
+
+.pixel-nav-link:hover {
+    color: var(--color-primary-container);
+}
+
+.pixel-nav-link.active {
+    color: var(--color-primary-container);
+    border-bottom: 4px solid var(--color-primary-container);
+    padding-bottom: 4px;
 }
 
 /* ============================================
@@ -438,7 +703,7 @@ h1, h2, h3, h4, h5, h6,
 .pixel-modal {
     border: 4px solid var(--color-pixel-border);
     box-shadow: 8px 8px 0px rgba(0, 0, 0, 1);
-    background-color: var(--color-pixel-bg-light);
+    background-color: var(--color-surface-container-low);
     padding: 32px;
     max-width: 500px;
     width: 90%;
@@ -481,9 +746,14 @@ h1, h2, h3, h4, h5, h6,
     75% { transform: translateX(4px); }
 }
 
-@keyframes pixel-glow {
+@keyframes pixel-glow-anim {
     0%, 100% { box-shadow: 4px 4px 0px rgba(0, 0, 0, 1), 0 0 10px rgba(255, 215, 0, 0.3); }
     50% { box-shadow: 4px 4px 0px rgba(0, 0, 0, 1), 0 0 20px rgba(255, 215, 0, 0.6); }
+}
+
+@keyframes pixel-fade-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-float {
@@ -499,11 +769,15 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .animate-glow {
-    animation: pixel-glow 2s ease-in-out infinite;
+    animation: pixel-glow-anim 2s ease-in-out infinite;
+}
+
+.animate-fade-in {
+    animation: pixel-fade-in 0.3s ease forwards;
 }
 
 /* ============================================
-   LOCK ICON (CSS-only pixel art)
+   LOCK / QUEST ICONS (CSS-only)
    ============================================ */
 
 .lock-icon::before {
@@ -525,16 +799,30 @@ h1, h2, h3, h4, h5, h6,
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--color-pixel-bg);
+    background: var(--color-background);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--color-pixel-surface);
+    background: var(--color-surface-container);
     border: 2px solid var(--color-pixel-border);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-pixel-surface-light);
+    background: var(--color-surface-container-high);
+}
+
+/* Custom scrollbar for panels */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: var(--color-surface-container-lowest);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-surface-container-high);
+    border: 1px solid var(--color-pixel-border);
 }
 
 /* ============================================

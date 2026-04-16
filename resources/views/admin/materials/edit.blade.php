@@ -1,27 +1,69 @@
 @extends('layouts.admin')
+
 @section('title', 'Edit Material')
+
 @section('main')
-<div class="max-w-2xl mx-auto">
-    <a href="{{ route('admin.quests.index', $quest->subject) }}" class="font-pixel text-[9px] text-pixel-text-muted hover:text-pixel-gold mb-4 inline-block">◀ QUESTS</a>
-    <div class="pixel-box p-8">
-        <h1 class="font-pixel text-sm text-pixel-gold mb-2 text-center">✏️ EDIT MATERIAL</h1>
-        <p class="font-pixel text-[9px] text-pixel-text-muted text-center mb-6">Quest: {{ $quest->title }}</p>
-        <form method="POST" action="{{ route('admin.materials.update', $quest) }}">
-            @csrf @method('PUT')
-            <div class="mb-5">
-                <label class="pixel-label">📖 Material Title</label>
-                <input type="text" name="title" value="{{ old('title', $material->title) }}" required class="pixel-input">
-            </div>
-            <div class="mb-5">
-                <label class="pixel-label">🎬 Video URL (Optional)</label>
-                <input type="url" name="video_url" value="{{ old('video_url', $material->video_url) }}" class="pixel-input">
-            </div>
-            <div class="mb-6">
-                <label class="pixel-label">📝 Content</label>
-                <textarea name="content" class="pixel-textarea" rows="10" required>{{ old('content', $material->content) }}</textarea>
-            </div>
-            <button type="submit" class="pixel-btn pixel-btn-gold w-full">💾 SAVE CHANGES</button>
-        </form>
+<div class="max-w-3xl mx-auto pb-12">
+    {{-- Breadcrumb --}}
+    <div class="mb-6">
+        <a href="{{ route('admin.quests.index', $quest->subject) }}" class="inline-flex items-center gap-2 font-headline text-[0.6rem] text-surface-variant hover:text-primary-container transition-colors uppercase">
+            <span class="material-symbols-outlined text-sm">arrow_back</span>
+            ABORT MODIFICATION
+        </a>
     </div>
+
+    {{-- Form Container --}}
+    <x-pixel-card variant="low" padding="xl" class="border-t-8 border-t-secondary-container">
+        <div class="flex items-center gap-3 mb-8 border-b-4 border-outline-variant pb-6">
+            <span class="material-symbols-outlined text-secondary-container text-4xl" style="font-variation-settings: 'FILL' 1;">edit_document</span>
+            <div>
+                <h1 class="font-headline text-xl text-on-surface uppercase">REVISE LORE MATERIAL</h1>
+                <p class="font-pixel text-[9px] text-surface-variant mt-2 uppercase">FOR QUEST: {{ $quest->title }}</p>
+            </div>
+        </div>
+
+        <form method="POST" action="{{ route('admin.materials.update', $quest) }}" class="space-y-6">
+            @csrf @method('PUT')
+
+            {{-- Title --}}
+            <div class="space-y-2 relative">
+                <label class="block font-headline text-[0.7rem] text-secondary-container uppercase flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">label</span> Material Title
+                </label>
+                <input type="text" name="title" value="{{ old('title', $material->title) }}" required
+                       class="w-full bg-surface-container-lowest border-4 border-black p-4 text-on-surface font-body text-xl focus:ring-0 focus:border-secondary-container transition-colors outline-none placeholder:text-surface-variant">
+            </div>
+
+            {{-- Video --}}
+            <div class="space-y-2 relative pt-4">
+                <label class="block font-headline text-[0.7rem] text-secondary-container uppercase flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">smart_display</span> Embed Video Link
+                </label>
+                <input type="url" name="video_url" value="{{ old('video_url', $material->video_url) }}"
+                       class="w-full bg-surface-container-lowest border-4 border-black p-4 text-on-surface font-body text-xl focus:ring-0 focus:border-secondary-container transition-colors outline-none placeholder:text-surface-variant">
+            </div>
+
+            {{-- Content --}}
+            <div class="space-y-2 relative pt-4">
+                <label class="block font-headline text-[0.7rem] text-secondary-container uppercase flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">history_edu</span> Lore Content (Text)
+                </label>
+                <div class="bg-surface-container-high border-4 border-black p-2 flex flex-col">
+                    <textarea name="content" rows="12" required
+                              class="w-full bg-surface-container-lowest border-2 border-black p-4 text-on-surface font-body text-xl focus:ring-0 outline-none resize-y">{{ old('content', $material->content) }}</textarea>
+                </div>
+            </div>
+
+            {{-- Actions --}}
+            <div class="pt-6 border-t-4 border-outline-variant flex flex-col sm:flex-row gap-4 justify-end mt-8">
+                <x-pixel-button variant="ghost" size="lg" href="{{ route('admin.quests.index', $quest->subject) }}" icon="close" class="sm:flex-1 text-center">
+                    CANCEL
+                </x-pixel-button>
+                <x-pixel-button variant="blue" type="submit" size="lg" icon="save" class="sm:flex-1">
+                    COMMIT_REVISIONS
+                </x-pixel-button>
+            </div>
+        </form>
+    </x-pixel-card>
 </div>
 @endsection
