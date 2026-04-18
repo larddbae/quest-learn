@@ -1,26 +1,12 @@
-@extends('layouts.base')
+@extends('layouts.guest')
 
 @section('title', 'Player Login')
 
-@section('content')
-{{-- TopAppBar --}}
-<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-background border-b-4 border-black shadow-[0px_4px_0px_0px_#000000]">
-    <div class="flex items-center gap-4">
-        <a href="{{ route('home') }}" class="text-2xl font-headline uppercase text-primary-container">QUESTLEARN</a>
-    </div>
-    <div class="hidden md:flex items-center gap-8 font-headline uppercase tracking-wider text-sm">
-        <a class="text-on-surface-variant hover:bg-surface-container hover:text-primary-container p-2 transition-all active:translate-y-0.5" href="{{ route('home') }}">Map</a>
-        <a class="text-on-surface-variant hover:bg-surface-container hover:text-primary-container p-2 transition-all active:translate-y-0.5" href="#">Quests</a>
-        <a class="text-on-surface-variant hover:bg-surface-container hover:text-primary-container p-2 transition-all active:translate-y-0.5" href="#">Shop</a>
-    </div>
-    <div class="flex items-center gap-4 text-primary-container">
-        <span class="material-symbols-outlined cursor-pointer hover:bg-surface-container p-1 transition-all">settings</span>
-        <span class="material-symbols-outlined cursor-pointer hover:bg-surface-container p-1 transition-all">help</span>
-    </div>
-</header>
+@section('guest-content')
+
 
 {{-- Main Content --}}
-<main class="relative flex flex-col items-center justify-center min-h-screen pt-16 px-4">
+<main class="relative flex flex-col items-center justify-center min-h-screen pt-24 pb-32 px-4">
     {{-- Background Ambiance --}}
     <div class="absolute inset-0 z-0 bg-[#0D0D2B]">
         <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#3a3000 1px, transparent 1px); background-size: 20px 20px;"></div>

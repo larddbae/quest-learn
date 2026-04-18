@@ -1,23 +1,9 @@
-@extends('layouts.base')
+@extends('layouts.guest')
 
 @section('title', 'QuestLearn — Level Up Your Mind')
 
-@section('content')
-{{-- Navigation Header --}}
-<header class="bg-background text-primary-container font-headline uppercase tracking-wider text-[0.75rem] fixed top-0 w-full border-b-4 border-black shadow-[4px_4px_0px_0px_#000000] flex justify-between items-center px-6 py-4 z-40">
-    <div class="flex items-center gap-4">
-        <span class="text-xl font-bold text-primary-container tracking-tighter">QUESTLEARN</span>
-    </div>
-    <nav class="hidden md:flex items-center gap-8">
-        <a class="text-[#3a86ff] hover:text-primary-fixed hover:translate-x-[2px] hover:translate-y-[2px] transition-all" href="#">QUESTS</a>
-        <a class="text-[#3a86ff] hover:text-primary-fixed hover:translate-x-[2px] hover:translate-y-[2px] transition-all" href="#">SKILLS</a>
-        <a class="text-[#3a86ff] hover:text-primary-fixed hover:translate-x-[2px] hover:translate-y-[2px] transition-all" href="#">BESTIARY</a>
-    </nav>
-    <div class="flex items-center gap-4">
-        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">military_tech</span>
-        <x-pixel-button variant="gold" size="sm" href="{{ route('login') }}">[ LOGIN ]</x-pixel-button>
-    </div>
-</header>
+@section('guest-content')
+
 
 {{-- Hero Stage --}}
 <main class="flex-grow flex flex-col items-center justify-center relative overflow-hidden px-4 pt-24 pb-32 min-h-screen">
@@ -81,20 +67,6 @@
     </div>
 </main>
 
-{{-- Footer --}}
-<footer class="bg-background text-secondary-container font-body text-lg fixed bottom-0 w-full border-t-4 border-black flex flex-col md:flex-row justify-between items-center px-8 py-6 z-40">
-    <div class="text-primary-container font-headline text-xs mb-4 md:mb-0">
-        QUESTLEARN // V 1.0.4
-    </div>
-    <div class="flex gap-8 items-center">
-        <a class="hover:text-primary-container transition-colors duration-100 uppercase" href="#">TERMS</a>
-        <a class="hover:text-primary-container transition-colors duration-100 uppercase" href="#">PRIVACY</a>
-        <a class="hover:text-primary-container transition-colors duration-100 uppercase" href="#">SUPPORT</a>
-    </div>
-    <div class="mt-4 md:mt-0 text-on-surface-variant text-sm">
-        &copy; {{ date('Y') }} QUESTLEARN — LEVEL UP YOUR MIND
-    </div>
-</footer>
 
 {{-- Pixel Star Decorations --}}
 <div class="fixed inset-0 pointer-events-none z-10">
