@@ -77,41 +77,20 @@ Route::middleware(['auth', 'role:teacher'])->prefix('admin')->name('admin.')->gr
     // Dashboard
     Route::get('/', [Admin\DashboardController::class, 'index'])->name('dashboard');
 
-    // Quest Builder (combined overview)
-    Route::get('/quest-builder', [Admin\QuestBuilderController::class, 'index'])->name('quest-builder');
-
     // Classroom Management
     Route::resource('classrooms', Admin\ClassroomController::class);
 
-    // Subject Management (nested under classroom)
-    Route::get('/classrooms/{classroom}/subjects', [Admin\SubjectController::class, 'index'])->name('subjects.index');
-    Route::get('/classrooms/{classroom}/subjects/create', [Admin\SubjectController::class, 'create'])->name('subjects.create');
-    Route::post('/classrooms/{classroom}/subjects', [Admin\SubjectController::class, 'store'])->name('subjects.store');
-    Route::get('/classrooms/{classroom}/subjects/{subject}/edit', [Admin\SubjectController::class, 'edit'])->name('subjects.edit');
-    Route::put('/classrooms/{classroom}/subjects/{subject}', [Admin\SubjectController::class, 'update'])->name('subjects.update');
-    Route::delete('/classrooms/{classroom}/subjects/{subject}', [Admin\SubjectController::class, 'destroy'])->name('subjects.destroy');
+    // Subject Management
+    Route::resource('subjects', Admin\SubjectController::class)->except('show');
 
-    // Quest Management (nested under subject)
-    Route::get('/subjects/{subject}/quests', [Admin\QuestController::class, 'index'])->name('quests.index');
-    Route::get('/subjects/{subject}/quests/create', [Admin\QuestController::class, 'create'])->name('quests.create');
-    Route::post('/subjects/{subject}/quests', [Admin\QuestController::class, 'store'])->name('quests.store');
-    Route::get('/subjects/{subject}/quests/{quest}/edit', [Admin\QuestController::class, 'edit'])->name('quests.edit');
-    Route::put('/subjects/{subject}/quests/{quest}', [Admin\QuestController::class, 'update'])->name('quests.update');
-    Route::delete('/subjects/{subject}/quests/{quest}', [Admin\QuestController::class, 'destroy'])->name('quests.destroy');
+    // Quest Management
+    Route::resource('quests', Admin\QuestController::class)->except('show');
 
     // Material Management
-    Route::get('/quests/{quest}/material/create', [Admin\MaterialController::class, 'create'])->name('materials.create');
-    Route::post('/quests/{quest}/material', [Admin\MaterialController::class, 'store'])->name('materials.store');
-    Route::get('/quests/{quest}/material/edit', [Admin\MaterialController::class, 'edit'])->name('materials.edit');
-    Route::put('/quests/{quest}/material', [Admin\MaterialController::class, 'update'])->name('materials.update');
+    Route::resource('materials', Admin\MaterialController::class)->except('show');
 
     // Quiz Management
-    Route::get('/quests/{quest}/quizzes', [Admin\QuizController::class, 'index'])->name('quizzes.index');
-    Route::get('/quests/{quest}/quizzes/create', [Admin\QuizController::class, 'create'])->name('quizzes.create');
-    Route::post('/quests/{quest}/quizzes', [Admin\QuizController::class, 'store'])->name('quizzes.store');
-    Route::get('/quests/{quest}/quizzes/{quiz}/edit', [Admin\QuizController::class, 'edit'])->name('quizzes.edit');
-    Route::put('/quests/{quest}/quizzes/{quiz}', [Admin\QuizController::class, 'update'])->name('quizzes.update');
-    Route::delete('/quests/{quest}/quizzes/{quiz}', [Admin\QuizController::class, 'destroy'])->name('quizzes.destroy');
+    Route::resource('quizzes', Admin\QuizController::class)->except('show');
 
     // Badge Management
     Route::resource('badges', Admin\BadgeController::class);

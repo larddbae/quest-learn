@@ -1,117 +1,101 @@
 @extends('layouts.admin')
 
-@section('title', 'Quests — ' . $subject->name)
+@section('title', 'Manage Quests')
 
 @section('main')
-<div class="max-w-6xl mx-auto pb-12">
-    {{-- Breadcrumb --}}
-    <div class="mb-6">
-        <a href="{{ route('admin.subjects.index', $subject->classroom) }}" class="inline-flex items-center gap-2 font-headline text-[0.6rem] text-surface-variant hover:text-primary-container transition-colors uppercase">
-            <span class="material-symbols-outlined text-sm">arrow_back</span>
-            {{ $subject->name }}
-        </a>
-    </div>
-
-    {{-- Header --}}
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-        <div class="flex items-center gap-3">
-            <span class="material-symbols-outlined text-primary-container text-4xl" style="font-variation-settings: 'FILL' 1;">swords</span>
-            <div>
-                <h1 class="font-headline text-2xl text-on-surface uppercase">QUEST ARCHIVE</h1>
-                <p class="font-body text-lg text-on-surface-variant mt-1">Manage skill nodes for {{ $subject->name }}</p>
+<div class="max-w-5xl mx-auto pb-12">
+    {{-- Arcade Header --}}
+    <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+        <div class="mb-4 md:mb-0 text-center md:text-left">
+            <div class="flex items-center gap-3 justify-center md:justify-start">
+                <span class="material-symbols-outlined text-primary-container text-5xl" style="font-variation-settings: 'FILL' 1;">swords</span>
+                <h1 class="font-headline text-3xl text-primary-container pixel-glow uppercase tracking-widest">
+                    QUEST BOARD
+                </h1>
+            </div>
+            <div class="inline-block bg-background border-2 border-primary-container px-6 py-2 mt-4 text-center">
+                <p class="font-headline text-[0.7rem] text-secondary-container uppercase tracking-wider">
+                    GLOBAL INDEX OF ALL ACTIVE QUEST NODES
+                </p>
             </div>
         </div>
-        <x-pixel-button variant="gold" size="md" href="{{ route('admin.quests.create', $subject) }}" icon="add_box">
-            ADD NEW QUEST
-        </x-pixel-button>
+        <div>
+            <x-pixel-button variant="gold" size="lg" href="{{ route('admin.quests.create') }}" icon="add_box">
+                FORGE QUEST
+            </x-pixel-button>
+        </div>
     </div>
 
-    {{-- Quests List / Timeline --}}
-    @forelse($quests as $quest)
-        <x-pixel-card variant="low" padding="md" class="mb-6 hover:-translate-y-1 transition-transform relative">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                
-                {{-- Quest Details (Left) --}}
-                <div class="flex-1 flex gap-4">
-                    {{-- Order Number Box --}}
-                    <div class="flex-shrink-0 w-16 h-16 bg-surface-container-high border-4 border-black flex flex-col items-center justify-center text-center">
-                        <span class="font-headline text-[0.55rem] text-surface-variant uppercase mb-1">NODE</span>
-                        <span class="font-headline text-lg text-primary-container">{{ $quest->order }}</span>
-                    </div>
-
-                    <div class="flex-1 min-w-0">
-                        <h3 class="font-headline text-lg text-on-surface uppercase tracking-wider mb-2">
-                            {{ $quest->title }}
-                        </h3>
-                        <p class="font-body text-xl text-on-surface-variant mb-4 max-w-2xl line-clamp-2">
-                            {{ $quest->description ?? 'No description provided.' }}
-                        </p>
-                        
-                        {{-- Meta Tags --}}
-                        <div class="flex flex-wrap items-center gap-3">
-                            <div class="bg-surface-container-high border-2 border-primary-container inline-flex items-center gap-2 px-2 py-1">
-                                <span class="material-symbols-outlined text-primary-container text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-                                <span class="font-headline text-[0.65rem] text-primary-container uppercase">{{ $quest->xp_reward }} XP</span>
-                            </div>
-                            
-                            @if($quest->material)
-                                <div class="bg-surface-container inline-flex items-center gap-2 px-2 py-1 border-2 border-black">
-                                    <span class="material-symbols-outlined text-secondary-container text-sm">auto_stories</span>
-                                    <span class="font-headline text-[0.65rem] text-secondary-container uppercase">LORE ATTACHED</span>
-                                </div>
-                                <div class="bg-surface-container inline-flex items-center gap-2 px-2 py-1 border-2 border-black">
-                                    <span class="material-symbols-outlined text-error text-sm">crisis_alert</span>
-                                    <span class="font-headline text-[0.65rem] text-error uppercase">{{ $quest->material->quizzes->count() }} ENEMIES</span>
-                                </div>
-                            @else
-                                <div class="bg-surface-container-lowest inline-flex items-center gap-2 px-2 py-1 border-2 border-surface-variant text-surface-variant">
-                                    <span class="material-symbols-outlined text-sm">warning</span>
-                                    <span class="font-headline text-[0.65rem] uppercase">EMPTY NODE WARNING</span>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Action Panel (Right) --}}
-                <div class="flex flex-wrap md:flex-col lg:flex-row items-center gap-3 border-t-4 md:border-t-0 md:border-l-4 border-outline-variant pt-4 md:pt-0 md:pl-6">
-                    @if($quest->material)
-                         <x-pixel-button variant="blue" size="sm" href="{{ route('admin.materials.edit', $quest) }}" icon="menu_book">
-                            LORE
-                        </x-pixel-button>
-                    @else
-                        <x-pixel-button variant="green" size="sm" href="{{ route('admin.materials.create', $quest) }}" icon="post_add">
-                            ADD_LORE
-                        </x-pixel-button>
-                    @endif
-                    
-                    <x-pixel-button variant="purple" size="sm" href="{{ route('admin.quizzes.index', $quest) }}" icon="swords">
-                        ENEMIES
-                    </x-pixel-button>
-                    
-                    <x-pixel-button variant="gold" size="sm" href="{{ route('admin.quests.edit', [$subject, $quest]) }}" icon="edit">
-                        EDIT
-                    </x-pixel-button>
-
-                    <form method="POST" action="{{ route('admin.quests.destroy', [$subject, $quest]) }}" class="inline"
-                          onsubmit="return confirm('WARNING: Destroy this node? All lore and enemies heavily bound to it will perish.')">
-                        @csrf @method('DELETE')
-                        <button type="submit" class="bg-surface-container-lowest border-4 border-error text-error hover:bg-error hover:text-white p-2 flex items-center justify-center transition-colors shadow-[4px_4px_0_0_#991b1b] active:shadow-none active:translate-y-1 active:translate-x-1" title="DESTROY NODE">
-                            <span class="material-symbols-outlined">delete_forever</span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </x-pixel-card>
-    @empty
+    @if($quests->isEmpty())
         <x-pixel-card variant="low" padding="xl" class="text-center">
-            <span class="material-symbols-outlined text-surface-variant text-7xl mb-4">account_tree</span>
-            <p class="font-headline text-lg text-primary-container mb-2 uppercase">NO QUEST NODES DETECTED</p>
-            <p class="font-body text-xl text-on-surface-variant mb-6 mx-auto max-w-md">This subject contains no structured missions. Expand the skill tree by adding your first quest node.</p>
-            <x-pixel-button variant="gold" href="{{ route('admin.quests.create', $subject) }}" icon="add">
-                FORGE FIRST QUEST
-            </x-pixel-button>
+            <span class="material-symbols-outlined text-surface-variant text-6xl mb-4">search_off</span>
+            <p class="font-headline text-[0.8rem] text-surface-variant uppercase tracking-widest mt-2">DATABASE EMPTY</p>
+            <p class="font-body text-lg text-on-surface-variant mt-4">No quests have been forged yet.</p>
         </x-pixel-card>
-    @endforelse
+    @else
+        <x-pixel-card variant="low" padding="sm" class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-surface-container-high border-b-4 border-black">
+                        <th class="p-4 font-headline text-[0.6rem] text-surface-variant uppercase">GUILD & SUBJECT</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-surface-variant uppercase">QUEST NODE</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-surface-variant uppercase text-center hidden md:table-cell">ORDER & XP</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-primary-container uppercase text-right">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($quests as $quest)
+                        <tr class="border-b-2 border-surface-container hover:bg-surface-container transition-colors text-on-surface h-16 group">
+                            {{-- Parents --}}
+                            <td class="p-4 w-1/3">
+                                <div class="flex flex-col gap-1 items-start">
+                                    <span class="font-headline text-[0.55rem] bg-surface-container-highest border border-surface-variant/30 px-2 py-0.5 uppercase text-surface-variant shadow-[1px_1px_0_0_#000]">
+                                        {{ $quest->subject->classroom->name ?? 'NO GUILD' }}
+                                    </span>
+                                    <span class="font-headline text-[0.65rem] bg-background border border-primary-container/50 px-2 py-1 uppercase text-primary-container shadow-[2px_2px_0_0_#000]">
+                                        {{ $quest->subject->name ?? 'NO SUBJECT' }}
+                                    </span>
+                                </div>
+                            </td>
+
+                            {{-- Quest Title --}}
+                            <td class="p-4 w-1/3">
+                                <div class="font-body text-lg font-bold text-primary-container">{{ $quest->title }}</div>
+                                <div class="font-body text-xs text-surface-variant truncate max-w-[200px]" title="{{ $quest->description }}">
+                                    {{ $quest->description ?: 'No description' }}
+                                </div>
+                            </td>
+
+                            {{-- Stats --}}
+                            <td class="p-4 text-center hidden md:table-cell w-1/6">
+                                <span class="font-headline text-[0.7rem] bg-surface-container-lowest px-2 py-1 uppercase text-on-surface border border-surface-variant/30 mr-2">
+                                    SEQ: {{ $quest->order }}
+                                </span>
+                                <span class="font-headline text-[0.7rem] bg-[#ffd700]/10 border border-[#ffd700]/50 px-2 py-1 uppercase text-[#ffd700]">
+                                    {{ $quest->xp_reward }} XP
+                                </span>
+                            </td>
+
+                            {{-- Actions --}}
+                            <td class="p-4 text-right w-1/6">
+                                <div class="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <a href="{{ route('admin.quests.edit', $quest) }}" class="text-[#ffd700] hover:text-white transition-colors" title="Edit">
+                                        <span class="material-symbols-outlined text-2xl drop-shadow-[1px_1px_0_#000]" style="font-variation-settings: 'FILL' 1;">edit_square</span>
+                                    </a>
+                                    <form action="{{ route('admin.quests.destroy', $quest) }}" method="POST" class="inline" onsubmit="return confirm('WARNING: DELETING THIS QUEST WILL DESTROY ALL ITS ASSOCIATED LORE MEMORY AND ENEMIES. PROCEED?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-error hover:text-white transition-colors" title="Delete">
+                                            <span class="material-symbols-outlined text-2xl drop-shadow-[1px_1px_0_#000]" style="font-variation-settings: 'FILL' 1;">delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </x-pixel-card>
+    @endif
 </div>
 @endsection

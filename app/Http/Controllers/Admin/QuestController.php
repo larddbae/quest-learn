@@ -9,68 +9,85 @@ use Illuminate\Http\Request;
 
 class QuestController extends Controller
 {
-    public function index(Subject $subject)
+    public function index()
     {
-        $this->authorizeSubject($subject);
-        $quests = $subject->quests()->with('material.quizzes')->orderBy('order')->get();
+        $teacher = auth()->user();
+        $classrooms = $teacher->ownedClassrooms()->pluck('id');
+        
+        $quests = Quest::whereHas('subject', function($q) use ($classrooms) {
+            $q->whereIn('classroom_id', $classrooms);
+        })->with(['subject.classroom', 'material.quizzes'])->orderBy('order')->get();
 
-        return view('admin.quests.index', compact('subject', 'quests'));
+        return view('admin.quests.index', compact('quests'));
     }
 
-    public function create(Subject $subject)
+    public function create()
     {
-        $this->authorizeSubject($subject);
-        $nextOrder = $subject->quests()->max('order') + 1;
-
-        return view('admin.quests.create', compact('subject', 'nextOrder'));
+        $teacher = auth()->user();
+        $classrooms = $teacher->ownedClassrooms()->pluck('id');
+        $subjects = Subject::whereIn('classroom_id', $classrooms)->with('classroom')->get();
+        // default next order is 1 if no quests exist
+        $nextOrder = 1;
+        
+        return view('admin.quests.create', compact('subjects', 'nextOrder'));
     }
 
-    public function store(Request $request, Subject $subject)
+    public function store(Request $request)
     {
-        $this->authorizeSubject($subject);
-
         $validated = $request->validate([
+            'subject_id' => 'required|exists:subjects,id',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'order' => 'required|integer|min:0',
             'xp_reward' => 'required|integer|min:1',
         ]);
+
+        $subject = Subject::findOrFail($validated['subject_id']);
+        $this->authorizeSubject($subject);
 
         $subject->quests()->create($validated);
 
-        return redirect()->route('admin.quests.index', $subject)
+        return redirect()->route('admin.quests.index')
             ->with('success', 'Quest created!');
     }
 
-    public function edit(Subject $subject, Quest $quest)
+    public function edit(Quest $quest)
     {
-        $this->authorizeSubject($subject);
-        return view('admin.quests.edit', compact('subject', 'quest'));
+        $this->authorizeSubject($quest->subject);
+        $teacher = auth()->user();
+        $classrooms = $teacher->ownedClassrooms()->pluck('id');
+        $subjects = Subject::whereIn('classroom_id', $classrooms)->with('classroom')->get();
+
+        return view('admin.quests.edit', compact('quest', 'subjects'));
     }
 
-    public function update(Request $request, Subject $subject, Quest $quest)
+    public function update(Request $request, Quest $quest)
     {
-        $this->authorizeSubject($subject);
+        $this->authorizeSubject($quest->subject);
 
         $validated = $request->validate([
+            'subject_id' => 'required|exists:subjects,id',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'order' => 'required|integer|min:0',
             'xp_reward' => 'required|integer|min:1',
         ]);
 
+        $newSubject = Subject::findOrFail($validated['subject_id']);
+        $this->authorizeSubject($newSubject);
+
         $quest->update($validated);
 
-        return redirect()->route('admin.quests.index', $subject)
+        return redirect()->route('admin.quests.index')
             ->with('success', 'Quest updated!');
     }
 
-    public function destroy(Subject $subject, Quest $quest)
+    public function destroy(Quest $quest)
     {
-        $this->authorizeSubject($subject);
+        $this->authorizeSubject($quest->subject);
         $quest->delete();
 
-        return redirect()->route('admin.quests.index', $subject)
+        return redirect()->route('admin.quests.index')
             ->with('success', 'Quest deleted.');
     }
 

@@ -6,7 +6,7 @@
 <div class="max-w-3xl mx-auto pb-12">
     {{-- Breadcrumb --}}
     <div class="mb-6">
-        <a href="{{ route('admin.quizzes.index', $quest) }}" class="inline-flex items-center gap-2 font-headline text-[0.6rem] text-surface-variant hover:text-primary-container transition-colors uppercase">
+        <a href="{{ route('admin.quizzes.index') }}" class="inline-flex items-center gap-2 font-headline text-[0.6rem] text-surface-variant hover:text-primary-container transition-colors uppercase">
             <span class="material-symbols-outlined text-sm">arrow_back</span>
             ABORT DEPLOYMENT
         </a>
@@ -18,15 +18,41 @@
             <span class="material-symbols-outlined text-error text-4xl" style="font-variation-settings: 'FILL' 1;">crisis_alert</span>
             <div>
                 <h1 class="font-headline text-xl text-on-surface uppercase">DEPLOY NEW ENEMY</h1>
-                <p class="font-pixel text-[9px] text-surface-variant mt-2 uppercase">QUEST: {{ $quest->title }}</p>
             </div>
         </div>
 
-        <form method="POST" action="{{ route('admin.quizzes.store', $quest) }}" class="space-y-8">
+        <form method="POST" action="{{ route('admin.quizzes.store') }}" class="space-y-8">
             @csrf
 
+            {{-- Select Material --}}
+            <div class="space-y-2 relative">
+                <label class="block font-headline text-[0.7rem] text-error uppercase flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">auto_stories</span> Target Material (Lore)
+                </label>
+                <div class="relative">
+                    <select name="material_id" required
+                            class="w-full bg-surface-container-lowest border-4 border-black p-4 text-on-surface font-body text-xl focus:ring-0 focus:border-error transition-colors outline-none cursor-pointer appearance-none">
+                        <option value="" disabled selected>-- SELECT MATERIAL --</option>
+                        @foreach($materials as $mat)
+                            <option value="{{ $mat->id }}" {{ old('material_id') == $mat->id ? 'selected' : '' }}>
+                                {{ $mat->quest->subject->classroom->name }} - Q: {{ $mat->quest->title }} - {{ $mat->title }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-error">
+                        <span class="material-symbols-outlined">expand_more</span>
+                    </div>
+                </div>
+                @error('material_id')
+                    <div class="flex items-center gap-1 mt-1 text-error absolute -bottom-5 left-0">
+                        <span class="material-symbols-outlined text-sm">warning</span>
+                        <p class="font-headline text-[0.55rem] uppercase">{{ $message }}</p> 
+                    </div>
+                @enderror
+            </div>
+
             {{-- Question --}}
-            <div class="space-y-3">
+            <div class="space-y-3 mt-8">
                 <label class="block font-headline text-[0.7rem] text-error uppercase flex items-center gap-2">
                     <span class="material-symbols-outlined text-sm">help_center</span> Enemy Prompt (Question)
                 </label>
@@ -86,7 +112,7 @@
 
             {{-- Actions --}}
             <div class="pt-6 border-t-4 border-outline-variant flex flex-col sm:flex-row gap-4 justify-end mt-8">
-                <x-pixel-button variant="ghost" size="lg" href="{{ route('admin.quizzes.index', $quest) }}" icon="close" class="sm:flex-1 text-center">
+                <x-pixel-button variant="ghost" size="lg" href="{{ route('admin.quizzes.index') }}" icon="close" class="sm:flex-1 text-center">
                     CANCEL
                 </x-pixel-button>
                 <x-pixel-button variant="error" type="submit" size="lg" icon="crisis_alert" class="sm:flex-1">

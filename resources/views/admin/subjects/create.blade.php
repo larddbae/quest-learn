@@ -6,7 +6,7 @@
 <div class="max-w-2xl mx-auto pb-12">
     {{-- Breadcrumb --}}
     <div class="mb-6">
-        <a href="{{ route('admin.subjects.index', $classroom) }}" class="inline-flex items-center gap-2 font-headline text-[0.6rem] text-surface-variant hover:text-primary-container transition-colors uppercase">
+        <a href="{{ route('admin.subjects.index') }}" class="inline-flex items-center gap-2 font-headline text-[0.6rem] text-surface-variant hover:text-primary-container transition-colors uppercase">
             <span class="material-symbols-outlined text-sm">arrow_back</span>
             ABORT CREATION
         </a>
@@ -19,8 +19,35 @@
             <h1 class="font-headline text-xl text-on-surface uppercase">ESTABLISH SUBJECT</h1>
         </div>
 
-        <form method="POST" action="{{ route('admin.subjects.store', $classroom) }}" class="space-y-6">
+        <form method="POST" action="{{ route('admin.subjects.store') }}" class="space-y-6">
             @csrf
+
+            {{-- Select Guild --}}
+            <div class="space-y-2">
+                <label class="block font-headline text-[0.7rem] text-primary-container uppercase flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">castle</span> Parent Guild
+                </label>
+                <div class="relative">
+                    <select name="classroom_id" required
+                            class="w-full bg-surface-container-lowest border-4 border-black p-4 text-on-surface font-body text-xl focus:ring-0 focus:border-secondary-container transition-colors outline-none cursor-pointer appearance-none">
+                        <option value="" disabled selected>-- SELECT GUILD --</option>
+                        @foreach($classrooms as $cls)
+                            <option value="{{ $cls->id }}" {{ old('classroom_id') == $cls->id ? 'selected' : '' }}>
+                                {{ $cls->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-primary-container">
+                        <span class="material-symbols-outlined">expand_more</span>
+                    </div>
+                </div>
+                @error('classroom_id')
+                    <div class="flex items-center gap-1 mt-1 text-error">
+                        <span class="material-symbols-outlined text-sm">warning</span>
+                        <p class="font-headline text-[0.55rem] uppercase">{{ $message }}</p> 
+                    </div>
+                @enderror
+            </div>
 
             {{-- Subject Name --}}
             <div class="space-y-2">
@@ -50,7 +77,7 @@
 
             {{-- Actions --}}
             <div class="pt-6 border-t-4 border-outline-variant flex flex-col sm:flex-row gap-4 justify-end mt-8">
-                <x-pixel-button variant="ghost" size="lg" href="{{ route('admin.subjects.index', $classroom) }}" icon="close" class="sm:flex-1 text-center">
+                <x-pixel-button variant="ghost" size="lg" href="{{ route('admin.subjects.index') }}" icon="close" class="sm:flex-1 text-center">
                     CANCEL
                 </x-pixel-button>
                 <x-pixel-button variant="gold" type="submit" size="lg" icon="library_add" class="sm:flex-1">

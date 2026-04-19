@@ -38,13 +38,37 @@
             <span class="material-symbols-outlined">monitor_heart</span>
             Guilds
         </a>
-        <a href="{{ route('admin.quest-builder') }}"
+        <a href="{{ route('admin.subjects.index') }}"
            class="flex items-center gap-3 px-4 py-3 font-headline text-[0.7rem] uppercase tracking-wider transition-all duration-75
-                  {{ request()->routeIs('admin.quest-builder') || request()->routeIs('admin.subjects.*') || request()->routeIs('admin.quests.*') || request()->routeIs('admin.materials.*') || request()->routeIs('admin.quizzes.*')
+                  {{ request()->routeIs('admin.subjects.*')
                       ? 'bg-surface-container-high text-primary-container border-l-4 border-primary-container translate-x-1'
                       : 'text-[#3a86ff] hover:text-white hover:bg-surface-container-high hover:translate-x-1' }}">
-            <span class="material-symbols-outlined">construction</span>
-            Quest Builder
+            <span class="material-symbols-outlined">menu_book</span>
+            Subjects
+        </a>
+        <a href="{{ route('admin.quests.index') }}"
+           class="flex items-center gap-3 px-4 py-3 font-headline text-[0.7rem] uppercase tracking-wider transition-all duration-75
+                  {{ request()->routeIs('admin.quests.*')
+                      ? 'bg-surface-container-high text-primary-container border-l-4 border-primary-container translate-x-1'
+                      : 'text-[#3a86ff] hover:text-white hover:bg-surface-container-high hover:translate-x-1' }}">
+            <span class="material-symbols-outlined">swords</span>
+            Quest Board
+        </a>
+        <a href="{{ route('admin.materials.index') }}"
+           class="flex items-center gap-3 px-4 py-3 font-headline text-[0.7rem] uppercase tracking-wider transition-all duration-75
+                  {{ request()->routeIs('admin.materials.*')
+                      ? 'bg-surface-container-high text-primary-container border-l-4 border-primary-container translate-x-1'
+                      : 'text-[#3a86ff] hover:text-white hover:bg-surface-container-high hover:translate-x-1' }}">
+            <span class="material-symbols-outlined">auto_stories</span>
+            Lore Library
+        </a>
+        <a href="{{ route('admin.quizzes.index') }}"
+           class="flex items-center gap-3 px-4 py-3 font-headline text-[0.7rem] uppercase tracking-wider transition-all duration-75
+                  {{ request()->routeIs('admin.quizzes.*')
+                      ? 'bg-surface-container-high text-primary-container border-l-4 border-primary-container translate-x-1'
+                      : 'text-[#3a86ff] hover:text-white hover:bg-surface-container-high hover:translate-x-1' }}">
+            <span class="material-symbols-outlined">pest_control</span>
+            Enemy Bestiary
         </a>
         <a href="{{ route('admin.badges.index') }}"
            class="flex items-center gap-3 px-4 py-3 font-headline text-[0.7rem] uppercase tracking-wider transition-all duration-75

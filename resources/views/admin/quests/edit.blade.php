@@ -6,7 +6,7 @@
 <div class="max-w-3xl mx-auto pb-12">
     {{-- Breadcrumb --}}
     <div class="mb-6">
-        <a href="{{ route('admin.quests.index', $subject) }}" class="inline-flex items-center gap-2 font-headline text-[0.6rem] text-surface-variant hover:text-primary-container transition-colors uppercase">
+        <a href="{{ route('admin.quests.index') }}" class="inline-flex items-center gap-2 font-headline text-[0.6rem] text-surface-variant hover:text-primary-container transition-colors uppercase">
             <span class="material-symbols-outlined text-sm">arrow_back</span>
             ABORT MODIFICATION
         </a>
@@ -19,11 +19,38 @@
             <h1 class="font-headline text-xl text-on-surface uppercase">RECONFIGURE QUEST NODE</h1>
         </div>
 
-        <form method="POST" action="{{ route('admin.quests.update', [$subject, $quest]) }}" class="space-y-6">
+        <form method="POST" action="{{ route('admin.quests.update', $quest) }}" class="space-y-6">
             @csrf @method('PUT')
 
-            {{-- Title --}}
+            {{-- Select Subject --}}
             <div class="space-y-2 relative">
+                <label class="block font-headline text-[0.7rem] text-[#ffd700] uppercase flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">menu_book</span> Parent Subject
+                </label>
+                <div class="relative">
+                    <select name="subject_id" required
+                            class="w-full bg-surface-container-lowest border-4 border-black p-4 text-on-surface font-body text-xl focus:ring-0 focus:border-[#ffd700] transition-colors outline-none cursor-pointer appearance-none">
+                        <option value="" disabled>-- SELECT SUBJECT --</option>
+                        @foreach($subjects as $subj)
+                            <option value="{{ $subj->id }}" {{ old('subject_id', $quest->subject_id) == $subj->id ? 'selected' : '' }}>
+                                {{ $subj->classroom->name }} - {{ $subj->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[#ffd700]">
+                        <span class="material-symbols-outlined">expand_more</span>
+                    </div>
+                </div>
+                @error('subject_id')
+                    <div class="flex items-center gap-1 mt-1 text-error absolute -bottom-5 left-0">
+                        <span class="material-symbols-outlined text-sm">warning</span>
+                        <p class="font-headline text-[0.55rem] uppercase">{{ $message }}</p> 
+                    </div>
+                @enderror
+            </div>
+
+            {{-- Title --}}
+            <div class="space-y-2 relative mt-8">
                 <label class="block font-headline text-[0.7rem] text-[#ffd700] uppercase flex items-center gap-2">
                     <span class="material-symbols-outlined text-sm">title</span> Quest Node Title
                 </label>
@@ -78,7 +105,7 @@
 
             {{-- Actions --}}
             <div class="pt-6 border-t-4 border-outline-variant flex flex-col sm:flex-row gap-4 justify-end mt-8">
-                <x-pixel-button variant="ghost" size="lg" href="{{ route('admin.quests.index', $subject) }}" icon="close" class="sm:flex-1 text-center">
+                <x-pixel-button variant="ghost" size="lg" href="{{ route('admin.quests.index') }}" icon="close" class="sm:flex-1 text-center">
                     CANCEL
                 </x-pixel-button>
                 <x-pixel-button variant="gold" type="submit" size="lg" icon="save" class="sm:flex-1">

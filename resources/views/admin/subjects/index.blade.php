@@ -1,92 +1,90 @@
 @extends('layouts.admin')
 
-@section('title', 'Subjects — ' . $classroom->name)
+@section('title', 'Manage Subjects')
 
 @section('main')
-<div class="max-w-6xl mx-auto pb-12">
-    {{-- Breadcrumb --}}
-    <div class="mb-6">
-        <a href="{{ route('admin.classrooms.show', $classroom) }}" class="inline-flex items-center gap-2 font-headline text-[0.6rem] text-surface-variant hover:text-primary-container transition-colors uppercase">
-            <span class="material-symbols-outlined text-sm">arrow_back</span>
-            {{ $classroom->name }}
-        </a>
-    </div>
-
-    {{-- Header --}}
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-        <div class="flex items-center gap-3">
-            <span class="material-symbols-outlined text-primary-container text-4xl" style="font-variation-settings: 'FILL' 1;">menu_book</span>
-            <div>
-                <h1 class="font-headline text-2xl text-on-surface uppercase">SUBJECTS DB</h1>
-                <p class="font-body text-lg text-on-surface-variant mt-1">Manage skill trees for {{ $classroom->name }}</p>
+<div class="max-w-5xl mx-auto pb-12">
+    {{-- Arcade Header --}}
+    <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+        <div class="mb-4 md:mb-0 text-center md:text-left">
+            <div class="flex items-center gap-3 justify-center md:justify-start">
+                <span class="material-symbols-outlined text-primary-container text-5xl" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+                <h1 class="font-headline text-3xl text-primary-container pixel-glow uppercase tracking-widest">
+                    SUBJECTS DATABASE
+                </h1>
+            </div>
+            <div class="inline-block bg-background border-2 border-primary-container px-6 py-2 mt-4 text-center">
+                <p class="font-headline text-[0.7rem] text-secondary-container uppercase tracking-wider">
+                    GLOBAL INDEX OF ALL ESTABLISHED DISCIPLINES
+                </p>
             </div>
         </div>
-        <x-pixel-button variant="gold" size="md" href="{{ route('admin.subjects.create', $classroom) }}" icon="library_add">
-            ADD SUBJECT
-        </x-pixel-button>
+        <div>
+            <x-pixel-button variant="gold" size="lg" href="{{ route('admin.subjects.create') }}" icon="add_box">
+                ESTABLISH SUBJECT
+            </x-pixel-button>
+        </div>
     </div>
 
-    {{-- Subject List --}}
-    @forelse($subjects as $subject)
-        <x-pixel-card variant="low" padding="md" class="mb-6 hover:-translate-y-1 transition-transform">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                
-                {{-- Subject Info --}}
-                <div class="flex-1">
-                    @php
-                        $subjectIcons = [
-                            'science' => 'science',
-                            'math' => 'calculate',
-                            'history' => 'history_edu',
-                            'english' => 'local_library',
-                        ];
-                        $icon = $subjectIcons[strtolower($subject->name)] ?? 'explore';
-                    @endphp
-
-                    <h3 class="font-headline text-lg text-primary-container uppercase tracking-wider mb-2 flex items-center gap-3">
-                        <span class="material-symbols-outlined text-secondary-container text-2xl" style="font-variation-settings: 'FILL' 1;">{{ $icon }}</span>
-                        {{ $subject->name }}
-                    </h3>
-                    <p class="font-body text-xl text-on-surface-variant mb-4 max-w-2xl">
-                        {{ $subject->description ?? 'No description provided.' }}
-                    </p>
-                    
-                    <div class="bg-surface-container border-2 border-black inline-flex items-center gap-2 px-3 py-1">
-                        <span class="material-symbols-outlined text-primary-container text-sm">map</span>
-                        <span class="font-headline text-[0.65rem] text-on-surface uppercase">{{ $subject->quests_count }} QUESTS LOADED</span>
-                    </div>
-                </div>
-
-                {{-- Admin Actions --}}
-                <div class="flex flex-wrap md:flex-col lg:flex-row items-center gap-3 border-t-4 md:border-t-0 md:border-l-4 border-outline-variant pt-4 md:pt-0 md:pl-6">
-                    <x-pixel-button variant="green" size="md" href="{{ route('admin.quests.index', $subject) }}" icon="swords">
-                        MANAGE QUESTS
-                    </x-pixel-button>
-                    <x-pixel-button variant="gold" size="md" href="{{ route('admin.subjects.edit', [$classroom, $subject]) }}" icon="edit">
-                        EDIT
-                    </x-pixel-button>
-                    
-                    <form method="POST" action="{{ route('admin.subjects.destroy', [$classroom, $subject]) }}" class="inline"
-                          onsubmit="return confirm('WARNING: Purge this subject? All associated quests and materials will be deleted!')">
-                        @csrf @method('DELETE')
-                        <button type="submit" class="bg-surface-container-lowest border-4 border-error text-error hover:bg-error hover:text-white p-3 flex items-center justify-center transition-colors shadow-[4px_4px_0_0_#991b1b] active:shadow-none active:translate-y-1 active:translate-x-1" title="PURGE SUBJECT">
-                            <span class="material-symbols-outlined">delete_forever</span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </x-pixel-card>
-    @empty
+    @if($subjects->isEmpty())
         <x-pixel-card variant="low" padding="xl" class="text-center">
-            <span class="material-symbols-outlined text-surface-variant text-7xl mb-4">auto_stories</span>
-            <p class="font-headline text-lg text-primary-container mb-2 uppercase">NO SUBJECTS ESTABLISHED</p>
-            <p class="font-body text-xl text-on-surface-variant mb-6 relative z-10">There are no learning paths generated for this guild's players yet.</p>
-            <div class="relative z-10 inline-block">
-                <x-pixel-button variant="gold" href="{{ route('admin.subjects.create', $classroom) }}" icon="add">
-                    CREATE FIRST SUBJECT
-                </x-pixel-button>
-            </div>
+            <span class="material-symbols-outlined text-surface-variant text-6xl mb-4">search_off</span>
+            <p class="font-headline text-[0.8rem] text-surface-variant uppercase tracking-widest mt-2">DATABASE EMPTY</p>
+            <p class="font-body text-lg text-on-surface-variant mt-4">No subjects have been established yet.</p>
         </x-pixel-card>
-    @endforelse
+    @else
+        <x-pixel-card variant="low" padding="sm" class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-surface-container-high border-b-4 border-black">
+                        <th class="p-4 font-headline text-[0.6rem] text-surface-variant uppercase">GUILD</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-surface-variant uppercase">SUBJECT</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-surface-variant uppercase hidden md:table-cell">CODEX (DESC)</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-primary-container uppercase text-right">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($subjects as $subject)
+                        <tr class="border-b-2 border-surface-container hover:bg-surface-container transition-colors text-on-surface h-16 group">
+                            {{-- Guild --}}
+                            <td class="p-4 w-1/4">
+                                <span class="font-headline text-[0.65rem] bg-surface-container-highest border border-surface-variant/30 px-2 py-1 uppercase text-surface-variant shadow-[2px_2px_0_0_#000]">
+                                    {{ $subject->classroom->name ?? 'NO GUILD' }}
+                                </span>
+                            </td>
+
+                            {{-- Subject Name --}}
+                            <td class="p-4 w-1/4">
+                                <div class="font-body text-lg font-bold text-primary-container">{{ $subject->name }}</div>
+                            </td>
+
+                            {{-- Description --}}
+                            <td class="p-4 hidden md:table-cell w-1/3">
+                                <div class="font-body text-sm text-surface-variant truncate max-w-[250px]" title="{{ $subject->description }}">
+                                    {{ $subject->description ?: 'No description' }}
+                                </div>
+                            </td>
+
+                            {{-- Actions --}}
+                            <td class="p-4 text-right w-1/6">
+                                <div class="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <a href="{{ route('admin.subjects.edit', $subject) }}" class="text-[#ffd700] hover:text-white transition-colors" title="Edit">
+                                        <span class="material-symbols-outlined text-2xl drop-shadow-[1px_1px_0_#000]" style="font-variation-settings: 'FILL' 1;">edit_square</span>
+                                    </a>
+                                    <form action="{{ route('admin.subjects.destroy', $subject) }}" method="POST" class="inline" onsubmit="return confirm('WARNING: DELETING THIS SUBJECT WILL WIPE ALL ASSOCIATED QUESTS, LORE, AND ENEMIES. PROCEED WITH EXTREME CAUTION.');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-error hover:text-white transition-colors" title="Delete">
+                                            <span class="material-symbols-outlined text-2xl drop-shadow-[1px_1px_0_#000]" style="font-variation-settings: 'FILL' 1;">delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </x-pixel-card>
+    @endif
 </div>
 @endsection
