@@ -138,31 +138,26 @@
 {{-- ============================================
      BOTTOM ACTION BAR (RPG Command Menu)
      ============================================ --}}
-<footer class="fixed bottom-0 w-full h-16 bg-surface-container-low border-t-4 border-black flex justify-center items-center gap-6 sm:gap-12 z-40 px-6">
-    <a href="{{ route('student.profile') }}"
-       class="flex items-center gap-2 font-headline text-[10px] cursor-pointer transition-colors {{ request()->routeIs('student.profile') ? 'text-primary-container' : 'text-on-surface hover:text-primary-container' }}">
-        <span class="material-symbols-outlined">person</span>
-        <span class="hidden sm:inline">CHARACTER</span>
-    </a>
-    <a href="{{ route('student.learning-room') }}"
-       class="flex items-center gap-2 font-headline text-[10px] cursor-pointer transition-colors {{ request()->routeIs('student.learning-room') || request()->routeIs('student.materials.*') ? 'text-primary-container' : 'text-on-surface hover:text-primary-container' }}">
-        <span class="material-symbols-outlined">backpack</span>
-        <span class="hidden sm:inline">INVENTORY</span>
-    </a>
-    <a href="{{ route('student.quest-board') }}"
-       class="flex items-center gap-2 font-headline text-[10px] cursor-pointer transition-colors {{ request()->routeIs('student.quest-board') || request()->routeIs('student.quests.*') ? 'text-primary-container' : 'text-on-surface hover:text-primary-container' }}">
-        <span class="material-symbols-outlined">map</span>
-        <span class="hidden sm:inline">WORLD_MAP</span>
-    </a>
-    <a href="{{ route('student.quiz-arena') }}"
-       class="flex items-center gap-2 font-headline text-[10px] cursor-pointer transition-colors {{ request()->routeIs('student.quiz-arena') || request()->routeIs('student.quizzes.*') ? 'text-primary-container' : 'text-on-surface hover:text-primary-container' }}">
-        <span class="material-symbols-outlined">storefront</span>
-        <span class="hidden sm:inline">MARKET</span>
+<footer class="fixed bottom-0 w-full h-16 bg-surface-container-low border-t-4 border-black flex justify-center items-center gap-6 sm:gap-12 z-40 px-6 md:hidden">
+    <a href="{{ route('student.dashboard') }}"
+       class="flex items-center gap-2 font-headline text-[10px] cursor-pointer transition-colors {{ request()->routeIs('student.dashboard') ? 'text-primary-container' : 'text-on-surface hover:text-primary-container' }}">
+        <span class="material-symbols-outlined">home</span>
+        <span class="hidden sm:inline">DASHBOARD</span>
     </a>
     <a href="{{ route('student.subjects.index') }}"
        class="flex items-center gap-2 font-headline text-[10px] cursor-pointer transition-colors {{ request()->routeIs('student.subjects.*') ? 'text-primary-container' : 'text-on-surface hover:text-primary-container' }}">
-        <span class="material-symbols-outlined">groups</span>
-        <span class="hidden sm:inline">GUILD</span>
+        <span class="material-symbols-outlined">menu_book</span>
+        <span class="hidden sm:inline">SUBJECTS</span>
+    </a>
+    <a href="{{ route('student.leaderboard') }}"
+       class="flex items-center gap-2 font-headline text-[10px] cursor-pointer transition-colors {{ request()->routeIs('student.leaderboard') ? 'text-primary-container' : 'text-on-surface hover:text-primary-container' }}">
+        <span class="material-symbols-outlined">trophy</span>
+        <span class="hidden sm:inline">RANKING</span>
+    </a>
+    <a href="{{ route('student.profile') }}"
+       class="flex items-center gap-2 font-headline text-[10px] cursor-pointer transition-colors {{ request()->routeIs('student.profile') ? 'text-primary-container' : 'text-on-surface hover:text-primary-container' }}">
+        <span class="material-symbols-outlined">person</span>
+        <span class="hidden sm:inline">PROFILE</span>
     </a>
 </footer>
 
