@@ -13,7 +13,7 @@
     </div>
 
     {{-- Desktop Nav Links --}}
-    <div class="hidden md:flex items-center gap-8 font-headline uppercase tracking-wider text-xs">
+    <div class="hidden md:flex items-center gap-4 lg:gap-6 font-headline uppercase tracking-wider text-[10px] lg:text-xs">
         <a href="{{ route('student.dashboard') }}"
            class="pixel-nav-link {{ request()->routeIs('student.dashboard') ? 'active' : '' }}">
             HOME
@@ -21,6 +21,18 @@
         <a href="{{ route('student.subjects.index') }}"
            class="pixel-nav-link {{ request()->routeIs('student.subjects.*') ? 'active' : '' }}">
             SUBJECTS
+        </a>
+        <a href="{{ route('student.quest-board') }}"
+           class="pixel-nav-link {{ request()->routeIs('student.quest-board') || request()->routeIs('student.quests.*') ? 'active' : '' }}">
+            QUESTS
+        </a>
+        <a href="{{ route('student.learning-room') }}"
+           class="pixel-nav-link {{ request()->routeIs('student.learning-room') || request()->routeIs('student.materials.*') ? 'active' : '' }}">
+            LORE
+        </a>
+        <a href="{{ route('student.quiz-arena') }}"
+           class="pixel-nav-link {{ request()->routeIs('student.quiz-arena') || request()->routeIs('student.quizzes.*') ? 'active' : '' }}">
+            ARENA
         </a>
         <a href="{{ route('student.leaderboard') }}"
            class="pixel-nav-link {{ request()->routeIs('student.leaderboard') ? 'active' : '' }}">
