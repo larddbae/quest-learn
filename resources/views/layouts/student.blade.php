@@ -18,6 +18,10 @@
            class="pixel-nav-link {{ request()->routeIs('student.dashboard') ? 'active' : '' }}">
             HOME
         </a>
+        <a href="{{ route('student.guild-select') }}"
+           class="pixel-nav-link {{ request()->routeIs('student.guild-select') ? 'active' : '' }}">
+            GUILDS
+        </a>
         <a href="{{ route('student.subjects.index') }}"
            class="pixel-nav-link {{ request()->routeIs('student.subjects.*') ? 'active' : '' }}">
             SUBJECTS
@@ -68,6 +72,10 @@
         <a href="{{ route('student.dashboard') }}"
            class="pixel-sidebar-link {{ request()->routeIs('student.dashboard') ? 'active' : '' }}">
             <span class="material-symbols-outlined text-lg">home</span> Dashboard
+        </a>
+        <a href="{{ route('student.guild-select') }}"
+           class="pixel-sidebar-link {{ request()->routeIs('student.guild-select') ? 'active' : '' }}">
+            <span class="material-symbols-outlined text-lg">fort</span> Guild Hall
         </a>
         <a href="{{ route('student.subjects.index') }}"
            class="pixel-sidebar-link {{ request()->routeIs('student.subjects.*') ? 'active' : '' }}">
@@ -154,7 +162,12 @@
     <a href="{{ route('student.dashboard') }}"
        class="flex items-center gap-2 font-headline text-[10px] cursor-pointer transition-colors {{ request()->routeIs('student.dashboard') ? 'text-primary-container' : 'text-on-surface hover:text-primary-container' }}">
         <span class="material-symbols-outlined">home</span>
-        <span class="hidden sm:inline">DASHBOARD</span>
+        <span class="hidden sm:inline">HOME</span>
+    </a>
+    <a href="{{ route('student.guild-select') }}"
+       class="flex items-center gap-2 font-headline text-[10px] cursor-pointer transition-colors {{ request()->routeIs('student.guild-select') ? 'text-primary-container' : 'text-on-surface hover:text-primary-container' }}">
+        <span class="material-symbols-outlined">fort</span>
+        <span class="hidden sm:inline">GUILDS</span>
     </a>
     <a href="{{ route('student.subjects.index') }}"
        class="flex items-center gap-2 font-headline text-[10px] cursor-pointer transition-colors {{ request()->routeIs('student.subjects.*') ? 'text-primary-container' : 'text-on-surface hover:text-primary-container' }}">

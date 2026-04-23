@@ -28,11 +28,13 @@ class ClassroomController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'visibility' => 'required|in:public,private',
         ]);
 
         $classroom = Classroom::create([
             'name' => $validated['name'],
             'description' => $validated['description'] ?? null,
+            'visibility' => $validated['visibility'],
             'teacher_id' => auth()->id(),
         ]);
 
@@ -66,6 +68,7 @@ class ClassroomController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'visibility' => 'required|in:public,private',
         ]);
 
         $classroom->update($validated);

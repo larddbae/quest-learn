@@ -10,8 +10,12 @@ class LeaderboardController extends Controller
     public function index()
     {
         $user = auth()->user();
+        $activeClassroomId = session('active_classroom_id');
 
-        $leaderboard = User::where('classroom_id', $user->classroom_id)
+        // Get all student user IDs enrolled in the active classroom via pivot
+        $leaderboard = User::whereHas('classrooms', function ($q) use ($activeClassroomId) {
+                $q->where('classrooms.id', $activeClassroomId);
+            })
             ->where('role', 'student')
             ->orderByRaw("FIELD(rank, 'Diamond', 'Platinum', 'Gold', 'Silver', 'Bronze')")
             ->orderBy('level', 'desc')

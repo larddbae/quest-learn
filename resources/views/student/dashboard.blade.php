@@ -52,7 +52,7 @@
                     </div>
                     <div class="bg-surface-container border-2 border-black px-4 py-3 flex items-center gap-3">
                         <span class="material-symbols-outlined text-secondary-container text-xl" style="font-variation-settings: 'FILL' 1;">school</span>
-                        <span class="font-body text-lg">Guild: {{ $user->classroom->name ?? 'None' }}</span>
+                        <span class="font-body text-lg">Guild: {{ $activeClassroom->name ?? 'None' }}</span>
                     </div>
                 </div>
             </div>
@@ -152,8 +152,8 @@
                         'english' => 'local_library',
                     ];
                 @endphp
-                @if($user->classroom)
-                    @foreach($user->classroom->subjects ?? [] as $subject)
+                @if($activeClassroom)
+                    @foreach($activeClassroom->subjects ?? [] as $subject)
                         <x-pixel-card variant="high" padding="md" hover>
                             <div class="flex flex-col items-center text-center gap-2">
                                 <span class="material-symbols-outlined text-primary-container text-3xl" style="font-variation-settings: 'FILL' 1;">
@@ -219,13 +219,13 @@
             @endif
 
             {{-- Guild Activity --}}
-            @if($user->classroom)
+            @if($activeClassroom)
                 <x-pixel-card variant="low" padding="sm">
                     <div class="flex items-start gap-3">
                         <span class="material-symbols-outlined text-secondary-container text-lg mt-0.5" style="font-variation-settings: 'FILL' 1;">groups</span>
                         <div>
                             <p class="font-headline text-[0.55rem] text-secondary-container uppercase">GUILD JOINED</p>
-                            <p class="font-body text-base text-on-surface-variant">{{ $user->classroom->name }}</p>
+                            <p class="font-body text-base text-on-surface-variant">{{ $activeClassroom->name }}</p>
                         </div>
                     </div>
                 </x-pixel-card>

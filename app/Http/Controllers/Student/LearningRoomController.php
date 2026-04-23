@@ -16,10 +16,11 @@ class LearningRoomController extends Controller
     public function index()
     {
         $user = auth()->user();
+        $activeClassroomId = session('active_classroom_id');
 
         // Get all quests the user has unlocked but not completed (in-progress materials)
-        $inProgressQuests = \App\Models\Quest::whereHas('subject', function ($q) use ($user) {
-            $q->where('classroom_id', $user->classroom_id);
+        $inProgressQuests = \App\Models\Quest::whereHas('subject', function ($q) use ($activeClassroomId) {
+            $q->where('classroom_id', $activeClassroomId);
         })
         ->whereDoesntHave('userProgress', function ($q) use ($user) {
             $q->where('user_id', $user->id)->where('is_completed', true);
@@ -31,8 +32,8 @@ class LearningRoomController extends Controller
         });
 
         // Completed quest materials (for review)
-        $completedQuests = \App\Models\Quest::whereHas('subject', function ($q) use ($user) {
-            $q->where('classroom_id', $user->classroom_id);
+        $completedQuests = \App\Models\Quest::whereHas('subject', function ($q) use ($activeClassroomId) {
+            $q->where('classroom_id', $activeClassroomId);
         })
         ->whereHas('userProgress', function ($q) use ($user) {
             $q->where('user_id', $user->id)->where('is_completed', true);

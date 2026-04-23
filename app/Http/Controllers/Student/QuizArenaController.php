@@ -14,10 +14,11 @@ class QuizArenaController extends Controller
     public function index()
     {
         $user = auth()->user();
+        $activeClassroomId = session('active_classroom_id');
 
         // Available quizzes: unlocked quests that have quizzes and haven't been completed
-        $availableQuests = \App\Models\Quest::whereHas('subject', function ($q) use ($user) {
-            $q->where('classroom_id', $user->classroom_id);
+        $availableQuests = \App\Models\Quest::whereHas('subject', function ($q) use ($activeClassroomId) {
+            $q->where('classroom_id', $activeClassroomId);
         })
         ->whereHas('material.quizzes')
         ->whereDoesntHave('userProgress', function ($q) use ($user) {

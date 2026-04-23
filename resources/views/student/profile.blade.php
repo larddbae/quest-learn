@@ -29,7 +29,7 @@
 
                     {{-- Title/Name --}}
                     <h2 class="font-headline text-lg text-primary-container uppercase text-center mb-1">{{ $user->name }}</h2>
-                    <p class="font-headline text-[0.6rem] text-secondary-container uppercase mb-4 tracking-widest">{{ $user->classroom->name ?? 'No Guild Assigned' }}</p>
+                    <p class="font-headline text-[0.6rem] text-secondary-container uppercase mb-4 tracking-widest">{{ $user->activeClassroom()->name ?? 'No Guild Assigned' }}</p>
 
                     {{-- Rank & Level Badges --}}
                     <div class="flex gap-4 w-full">
@@ -55,6 +55,14 @@
                 <x-stat-card label="PERFECT_RUNS" :value="$perfectScores" icon="crisis_alert" color="green" />
                 <x-stat-card label="BADGES_OWNED" :value="$badges->count()" icon="workspace_premium" color="gold" />
             </div>
+
+            {{-- Logout --}}
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <x-pixel-button variant="red" type="submit" :full="true" icon="logout" size="sm">
+                    DISCONNECT (LOGOUT)
+                </x-pixel-button>
+            </form>
         </div>
 
         {{-- ============================================

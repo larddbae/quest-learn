@@ -26,8 +26,14 @@ class JoinClassController extends Controller
         }
 
         $user = auth()->user();
-        $user->classroom_id = $classroom->id;
-        $user->save();
+
+        // Attach via pivot (ignore if already a member)
+        if (!$user->classrooms()->where('classrooms.id', $classroom->id)->exists()) {
+            $user->classrooms()->attach($classroom->id);
+        }
+
+        // Set the newly joined classroom as the active one
+        session(['active_classroom_id' => $classroom->id]);
 
         return redirect()->route('student.dashboard')->with('success', 'Welcome to ' . $classroom->name . '! Your adventure begins now! ⚔️');
     }

@@ -40,6 +40,11 @@ Route::middleware(['auth', 'classroom'])->prefix('dashboard')->name('student.')-
     Route::get('/join-class', [Student\JoinClassController::class, 'show'])->name('join-class')->withoutMiddleware('classroom');
     Route::post('/join-class', [Student\JoinClassController::class, 'join'])->name('join-class.submit')->withoutMiddleware('classroom');
 
+    // Guild Selection (accessible without active classroom)
+    Route::get('/guild-select', [Student\GuildSelectController::class, 'index'])->name('guild-select')->withoutMiddleware('classroom');
+    Route::post('/guild-select', [Student\GuildSelectController::class, 'set'])->name('guild-select.set')->withoutMiddleware('classroom');
+    Route::post('/guild-select/join-public', [Student\GuildSelectController::class, 'joinPublic'])->name('guild-select.join-public')->withoutMiddleware('classroom');
+
     // Dashboard
     Route::get('/', [Student\DashboardController::class, 'index'])->name('dashboard');
 

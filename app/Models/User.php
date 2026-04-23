@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -24,7 +23,6 @@ class User extends Authenticatable
         'level',
         'rank',
         'avatar',
-        'classroom_id',
     ];
 
     protected $hidden = [
@@ -50,11 +48,32 @@ class User extends Authenticatable
         return $this->role === 'student';
     }
 
-    public function classroom(): BelongsTo
+    /**
+     * Many-to-Many: A user can belong to multiple classrooms (guilds).
+     */
+    public function classrooms(): BelongsToMany
     {
-        return $this->belongsTo(Classroom::class);
+        return $this->belongsToMany(Classroom::class)->withTimestamps();
     }
 
+    /**
+     * Get the currently active classroom from the session.
+     * Returns null if no active classroom is set or the user
+     * is not a member of the stored classroom.
+     */
+    public function activeClassroom(): ?Classroom
+    {
+        $id = session('active_classroom_id');
+        if (!$id) {
+            return null;
+        }
+
+        return $this->classrooms()->where('classrooms.id', $id)->first();
+    }
+
+    /**
+     * Classrooms owned/created by this user (teacher role).
+     */
     public function ownedClassrooms(): HasMany
     {
         return $this->hasMany(Classroom::class, 'teacher_id');

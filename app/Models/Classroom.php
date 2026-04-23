@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
@@ -14,6 +15,7 @@ class Classroom extends Model
         'join_code',
         'teacher_id',
         'description',
+        'visibility',
     ];
 
     protected static function booted(): void
@@ -30,9 +32,22 @@ class Classroom extends Model
         return $this->belongsTo(User::class, 'teacher_id');
     }
 
-    public function students(): HasMany
+    /**
+     * Many-to-Many: All users enrolled in this classroom.
+     */
+    public function users(): BelongsToMany
     {
-        return $this->hasMany(User::class, 'classroom_id')->where('role', 'student');
+        return $this->belongsToMany(User::class)->withTimestamps();
+    }
+
+    /**
+     * Convenience: only student users enrolled in this classroom.
+     */
+    public function students(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class)
+            ->where('role', 'student')
+            ->withTimestamps();
     }
 
     public function subjects(): HasMany

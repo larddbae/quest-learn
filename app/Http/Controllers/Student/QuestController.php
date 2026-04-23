@@ -12,9 +12,10 @@ class QuestController extends Controller
     public function index(Subject $subject)
     {
         $user = auth()->user();
+        $activeClassroomId = session('active_classroom_id');
 
-        // Verify subject belongs to user's classroom
-        if ($subject->classroom_id !== $user->classroom_id) {
+        // Verify subject belongs to user's active classroom
+        if ($subject->classroom_id !== $activeClassroomId) {
             abort(403);
         }
 

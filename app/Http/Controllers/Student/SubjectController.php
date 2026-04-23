@@ -10,7 +10,9 @@ class SubjectController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $subjects = Subject::where('classroom_id', $user->classroom_id)
+        $activeClassroomId = session('active_classroom_id');
+
+        $subjects = Subject::where('classroom_id', $activeClassroomId)
             ->withCount('quests')
             ->get();
 

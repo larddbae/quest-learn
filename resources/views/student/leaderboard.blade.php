@@ -12,7 +12,7 @@
         </h1>
         <div class="inline-block bg-background border-2 border-primary-container px-6 py-2 mt-2">
             <p class="font-headline text-[0.7rem] text-secondary-container uppercase tracking-wider">
-                {{ $user->classroom->name ?? 'SYSTEM GUILD' }}
+                {{ $user->activeClassroom()->name ?? 'SYSTEM GUILD' }}
             </p>
         </div>
     </div>

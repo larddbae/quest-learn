@@ -10,14 +10,15 @@ use App\Models\UserProgress;
 class QuestBoardController extends Controller
 {
     /**
-     * Quest Board — shows ALL quests across all subjects in the student's classroom,
-     * organized by subject with unlock/completion status.
+     * Quest Board — shows ALL quests across all subjects in the student's
+     * active classroom, organized by subject with unlock/completion status.
      */
     public function index()
     {
         $user = auth()->user();
+        $activeClassroomId = session('active_classroom_id');
 
-        $subjects = Subject::where('classroom_id', $user->classroom_id)
+        $subjects = Subject::where('classroom_id', $activeClassroomId)
             ->with(['quests' => function ($q) {
                 $q->orderBy('order');
             }])

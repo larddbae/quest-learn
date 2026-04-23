@@ -32,8 +32,14 @@ class AuthController extends Controller
                 return redirect()->route('admin.dashboard');
             }
 
-            if ($user->isStudent() && !$user->classroom_id) {
-                return redirect()->route('student.join-class');
+            // Many-to-Many: no guilds → send to Guild Hall
+            if ($user->isStudent() && $user->classrooms()->count() === 0) {
+                return redirect()->route('student.guild-select');
+            }
+
+            // Auto-set active classroom if only one guild
+            if ($user->isStudent() && $user->classrooms()->count() === 1) {
+                session(['active_classroom_id' => $user->classrooms()->first()->id]);
             }
 
             return redirect()->route('student.dashboard');
@@ -71,7 +77,7 @@ class AuthController extends Controller
             return redirect()->route('admin.dashboard');
         }
 
-        return redirect()->route('student.join-class');
+        return redirect()->route('student.guild-select');
     }
 
     public function logout(Request $request)

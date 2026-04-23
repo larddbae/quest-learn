@@ -11,7 +11,9 @@ class DashboardController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $user->load(['classroom', 'badges', 'progress']);
+        $activeClassroom = $user->activeClassroom();
+
+        $user->load(['badges', 'progress']);
 
         $completedQuests = $user->progress()->where('is_completed', true)->count();
         $totalXP = UserProgress::where('user_id', $user->id)
@@ -31,6 +33,9 @@ class DashboardController extends Controller
             ->take(3)
             ->get();
 
-        return view('student.dashboard', compact('user', 'completedQuests', 'totalXP', 'recentProgress', 'recentBadges'));
+        return view('student.dashboard', compact(
+            'user', 'activeClassroom', 'completedQuests',
+            'totalXP', 'recentProgress', 'recentBadges'
+        ));
     }
 }
