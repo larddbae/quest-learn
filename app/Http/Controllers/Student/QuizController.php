@@ -13,7 +13,7 @@ class QuizController extends Controller
     public function show(Quest $quest)
     {
         $user = auth()->user();
-        $activeClassroomId = session('active_classroom_id');
+        $activeClassroomId = (int) session('active_classroom_id');
 
         if ($quest->subject->classroom_id !== $activeClassroomId) {
             abort(403);
@@ -50,7 +50,7 @@ class QuizController extends Controller
     public function submit(Request $request, Quest $quest, GamificationService $gamificationService)
     {
         $user = auth()->user();
-        $activeClassroomId = session('active_classroom_id');
+        $activeClassroomId = (int) session('active_classroom_id');
 
         if ($quest->subject->classroom_id !== $activeClassroomId) {
             abort(403);

@@ -12,7 +12,7 @@ class MaterialController extends Controller
     public function show(Quest $quest)
     {
         $user = auth()->user();
-        $activeClassroomId = session('active_classroom_id');
+        $activeClassroomId = (int) session('active_classroom_id');
 
         // Verify quest belongs to user's active classroom
         if ($quest->subject->classroom_id !== $activeClassroomId) {

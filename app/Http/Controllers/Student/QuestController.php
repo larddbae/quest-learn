@@ -12,9 +12,10 @@ class QuestController extends Controller
     public function index(Subject $subject)
     {
         $user = auth()->user();
-        $activeClassroomId = session('active_classroom_id');
+        $activeClassroomId = (int) session('active_classroom_id');
 
-        // Verify subject belongs to user's active classroom
+        // Verify the subject belongs to the student's currently active guild.
+        // Cast to int because session values are stored as strings.
         if ($subject->classroom_id !== $activeClassroomId) {
             abort(403);
         }
