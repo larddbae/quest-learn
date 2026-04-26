@@ -16,10 +16,22 @@ class GuildSelectController extends Controller
     {
         $user = auth()->user();
 
-        $classrooms = $user->classrooms()
+        $classroomsQuery = $user->classrooms()
             ->with('teacher')
-            ->withCount(['users', 'subjects'])
-            ->get();
+            ->withCount(['users', 'subjects']);
+
+        // Apply search filter to user's own guilds
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $classroomsQuery->where(function ($q) use ($search) {
+                $q->where('classrooms.name', 'like', "%{$search}%")
+                  ->orWhereHas('teacher', function ($q2) use ($search) {
+                      $q2->where('name', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        $classrooms = $classroomsQuery->get();
 
         // Get the user's joined classroom IDs to exclude from public listing
         $joinedIds = $classrooms->pluck('id')->toArray();

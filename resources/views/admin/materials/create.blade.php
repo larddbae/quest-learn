@@ -85,7 +85,7 @@
                 </label>
                 <div class="bg-surface-container-high border-4 border-black p-2 flex flex-col">
                     <textarea name="content" rows="12" required
-                              class="w-full bg-surface-container-lowest border-2 border-black p-4 text-on-surface font-body text-xl focus:ring-0 outline-none resize-y" 
+                              class="w-full bg-surface-container-lowest border-2 border-black p-4 text-on-surface font-body text-xl focus:ring-0 outline-none resize-y max-h-96 overflow-y-auto" 
                               placeholder="Type the learning material here. Use line breaks for paragraphs...">{{ old('content') }}</textarea>
                 </div>
                 @error('content') 

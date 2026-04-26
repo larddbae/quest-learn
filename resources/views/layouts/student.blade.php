@@ -34,10 +34,6 @@
            class="pixel-nav-link {{ request()->routeIs('student.learning-room') || request()->routeIs('student.materials.*') ? 'active' : '' }}">
             LORE
         </a>
-        <a href="{{ route('student.quiz-arena') }}"
-           class="pixel-nav-link {{ request()->routeIs('student.quiz-arena') || request()->routeIs('student.quizzes.*') ? 'active' : '' }}">
-            ARENA
-        </a>
         <a href="{{ route('student.leaderboard') }}"
            class="pixel-nav-link {{ request()->routeIs('student.leaderboard') ? 'active' : '' }}">
             LEADERBOARD
@@ -88,10 +84,6 @@
         <a href="{{ route('student.learning-room') }}"
            class="pixel-sidebar-link {{ request()->routeIs('student.learning-room') || request()->routeIs('student.materials.*') ? 'active' : '' }}">
             <span class="material-symbols-outlined text-lg">auto_stories</span> Learning Room
-        </a>
-        <a href="{{ route('student.quiz-arena') }}"
-           class="pixel-sidebar-link {{ request()->routeIs('student.quiz-arena') || request()->routeIs('student.quizzes.*') ? 'active' : '' }}">
-            <span class="material-symbols-outlined text-lg">swords</span> Quiz Arena
         </a>
         <a href="{{ route('student.profile') }}"
            class="pixel-sidebar-link {{ request()->routeIs('student.profile') ? 'active' : '' }}">

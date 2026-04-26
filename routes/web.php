@@ -64,6 +64,7 @@ Route::middleware(['auth', 'classroom'])->prefix('dashboard')->name('student.')-
     Route::get('/quiz-arena', [Student\QuizArenaController::class, 'index'])->name('quiz-arena');
     Route::get('/quests/{quest}/quiz', [Student\QuizController::class, 'show'])->name('quizzes.show');
     Route::post('/quests/{quest}/quiz', [Student\QuizController::class, 'submit'])->name('quizzes.submit');
+    Route::get('/quests/{quest}/quiz/review', [Student\QuizController::class, 'review'])->name('quizzes.review');
 
     // Profile & Inventory
     Route::get('/profile', [Student\ProfileController::class, 'index'])->name('profile');

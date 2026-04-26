@@ -70,8 +70,7 @@
                                                 peer-checked:bg-primary-container peer-checked:text-black peer-checked:border-black peer-checked:translate-y-0 peer-checked:shadow-none">
                                         
                                         {{-- Option Letter (A, B, C, D) --}}
-                                        <div class="w-8 h-8 flex-shrink-0 bg-background border-2 border-black flex items-center justify-center font-headline text-[0.7rem] uppercase
-                                                    peer-checked:bg-black peer-checked:text-primary-container">
+                                        <div class="w-8 h-8 flex-shrink-0 bg-background border-2 border-black flex items-center justify-center font-headline text-[0.7rem] uppercase text-on-surface">
                                             {{ $option }}
                                         </div>
                                         

@@ -91,7 +91,7 @@
     @else
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             @foreach($completedQuests as $quest)
-                <a href="{{ route('student.materials.show', $quest) }}" class="pixel-card p-5 block group" style="opacity: 0.85;">
+                <a href="{{ route('student.quizzes.review', $quest) }}" class="pixel-card p-5 block group" style="opacity: 0.85;">
                     <div class="flex items-start gap-4">
                         <div class="text-3xl">✅</div>
                         <div class="flex-1 min-w-0">

@@ -15,6 +15,7 @@ class UserProgress extends Model
         'is_completed',
         'score',
         'total_questions',
+        'answers',
         'completed_at',
     ];
 
@@ -23,6 +24,7 @@ class UserProgress extends Model
         return [
             'is_completed' => 'boolean',
             'completed_at' => 'datetime',
+            'answers' => 'array',
         ];
     }
 

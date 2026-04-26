@@ -70,7 +70,7 @@
         @endif
 
         {{-- Written Material Content --}}
-        <div class="font-body text-xl md:text-2xl leading-relaxed text-on-surface prose prose-invert prose-p:mb-6 prose-headings:font-headline prose-headings:text-primary-container max-w-none">
+        <div class="font-body text-xl md:text-2xl leading-relaxed text-on-surface prose prose-invert prose-p:mb-6 prose-headings:font-headline prose-headings:text-primary-container max-w-none max-h-[60vh] overflow-y-auto pr-4 custom-scrollbar">
             {!! nl2br(e($material->content)) !!}
         </div>
     </x-pixel-card>

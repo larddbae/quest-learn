@@ -87,7 +87,7 @@
                                 <span class="material-symbols-outlined text-lg">lock</span> LOCKED
                             </div>
                         @elseif($isCompleted)
-                            <x-pixel-button variant="blue" size="md" href="{{ route('student.materials.show', $quest) }}" icon="history">
+                            <x-pixel-button variant="blue" size="md" href="{{ route('student.quizzes.review', $quest) }}" icon="history">
                                 REVIEW
                             </x-pixel-button>
                         @else

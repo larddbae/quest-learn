@@ -61,11 +61,11 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($classrooms as $classroom)
                     <x-pixel-card variant="low" padding="none" hover>
-                        <div class="relative">
+                        <div>
                             {{-- Guild Banner / Header Strip --}}
-                            <div class="bg-surface-container-high border-b-4 border-black px-5 py-4 flex items-center gap-3">
-                                <div class="w-12 h-12 border-3 border-black bg-background flex items-center justify-center flex-shrink-0">
-                                    <span class="material-symbols-outlined text-primary-container text-2xl" style="font-variation-settings: 'FILL' 1;">fort</span>
+                            <div class="bg-surface-container-high border-b-4 border-black px-4 py-3 flex items-center gap-3 flex-wrap">
+                                <div class="w-10 h-10 sm:w-12 sm:h-12 border-3 border-black bg-background flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined text-primary-container text-xl sm:text-2xl" style="font-variation-settings: 'FILL' 1;">fort</span>
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <h3 class="font-headline text-[0.6rem] text-primary-container uppercase truncate leading-relaxed">
@@ -74,6 +74,26 @@
                                     <p class="font-body text-lg text-on-surface-variant truncate leading-tight">
                                         {{ $classroom->join_code }}
                                     </p>
+                                </div>
+                                {{-- Inline Badges --}}
+                                <div class="flex flex-wrap items-center gap-1 flex-shrink-0">
+                                    @if(session('active_classroom_id') == $classroom->id)
+                                        <span class="inline-flex items-center gap-1 bg-secondary-container border-2 border-black px-2 py-0.5">
+                                            <span class="material-symbols-outlined text-black text-xs" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                            <span class="font-headline text-[6px] text-black uppercase">ACTIVE</span>
+                                        </span>
+                                    @endif
+                                    @if($classroom->visibility === 'public')
+                                        <span class="inline-flex items-center gap-1 bg-secondary-container/20 border-2 border-secondary-container px-2 py-0.5">
+                                            <span class="material-symbols-outlined text-secondary-container text-[10px]" style="font-variation-settings: 'FILL' 1;">public</span>
+                                            <span class="font-headline text-[5px] text-secondary-container uppercase">PUBLIC</span>
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center gap-1 bg-error-container/20 border-2 border-error px-2 py-0.5">
+                                            <span class="material-symbols-outlined text-error text-[10px]" style="font-variation-settings: 'FILL' 1;">lock</span>
+                                            <span class="font-headline text-[5px] text-error uppercase">PRIVATE</span>
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
 
@@ -107,28 +127,7 @@
                                 </div>
                             </div>
 
-                            {{-- Top-Right Badges --}}
-                            <div class="absolute top-3 right-3 flex flex-col items-end gap-1">
-                                {{-- Active Badge --}}
-                                @if(session('active_classroom_id') == $classroom->id)
-                                    <span class="inline-flex items-center gap-1 bg-secondary-container border-2 border-black px-2 py-1">
-                                        <span class="material-symbols-outlined text-black text-xs" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-                                        <span class="font-headline text-[6px] text-black uppercase">ACTIVE</span>
-                                    </span>
-                                @endif
-                                {{-- Visibility Badge --}}
-                                @if($classroom->visibility === 'public')
-                                    <span class="inline-flex items-center gap-1 bg-secondary-container/20 border-2 border-secondary-container px-2 py-0.5">
-                                        <span class="material-symbols-outlined text-secondary-container text-[10px]" style="font-variation-settings: 'FILL' 1;">public</span>
-                                        <span class="font-headline text-[5px] text-secondary-container uppercase">PUBLIC</span>
-                                    </span>
-                                @else
-                                    <span class="inline-flex items-center gap-1 bg-error-container/20 border-2 border-error px-2 py-0.5">
-                                        <span class="material-symbols-outlined text-error text-[10px]" style="font-variation-settings: 'FILL' 1;">lock</span>
-                                        <span class="font-headline text-[5px] text-error uppercase">PRIVATE</span>
-                                    </span>
-                                @endif
-                            </div>
+                            {{-- Top-Right Badges Removed (Moved to header strip) --}}
 
                             {{-- Enter Guild Button --}}
                             <div class="px-5 pb-5 pt-2">
@@ -202,11 +201,11 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($publicGuilds as $guild)
                     <x-pixel-card variant="high" padding="none" hover>
-                        <div class="relative">
+                        <div>
                             {{-- Guild Banner / Header Strip --}}
-                            <div class="bg-surface-container-highest border-b-4 border-black px-5 py-4 flex items-center gap-3">
-                                <div class="w-12 h-12 border-3 border-black bg-background flex items-center justify-center flex-shrink-0">
-                                    <span class="material-symbols-outlined text-tertiary-fixed-dim text-2xl" style="font-variation-settings: 'FILL' 1;">public</span>
+                            <div class="bg-surface-container-highest border-b-4 border-black px-4 py-3 flex items-center gap-3 flex-wrap">
+                                <div class="w-10 h-10 sm:w-12 sm:h-12 border-3 border-black bg-background flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined text-tertiary-fixed-dim text-xl sm:text-2xl" style="font-variation-settings: 'FILL' 1;">public</span>
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <h3 class="font-headline text-[0.6rem] text-tertiary-fixed-dim uppercase truncate leading-relaxed">
@@ -216,6 +215,11 @@
                                         Open Guild
                                     </p>
                                 </div>
+                                {{-- Public Badge (inline, responsive) --}}
+                                <span class="inline-flex items-center gap-1 bg-secondary-container border-2 border-black px-2 py-0.5 flex-shrink-0">
+                                    <span class="material-symbols-outlined text-black text-xs" style="font-variation-settings: 'FILL' 1;">public</span>
+                                    <span class="font-headline text-[6px] text-black uppercase">PUBLIC</span>
+                                </span>
                             </div>
 
                             {{-- Guild Details --}}
@@ -248,13 +252,7 @@
                                 </div>
                             </div>
 
-                            {{-- Public Badge --}}
-                            <div class="absolute top-3 right-3">
-                                <span class="inline-flex items-center gap-1 bg-secondary-container border-2 border-black px-2 py-1">
-                                    <span class="material-symbols-outlined text-black text-xs" style="font-variation-settings: 'FILL' 1;">public</span>
-                                    <span class="font-headline text-[6px] text-black uppercase">PUBLIC</span>
-                                </span>
-                            </div>
+                            {{-- Public Badge Removed (Moved to header strip) --}}
 
                             {{-- Join Button --}}
                             <div class="px-5 pb-5 pt-2">
