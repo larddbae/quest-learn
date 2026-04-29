@@ -19,7 +19,7 @@
             <h1 class="font-headline text-xl text-on-surface uppercase">ESTABLISH NEW GUILD</h1>
         </div>
 
-        <form method="POST" action="{{ route('admin.classrooms.store') }}" class="space-y-6">
+        <form method="POST" action="{{ route('admin.classrooms.store') }}" class="space-y-6" novalidate onsubmit="let btn = this.querySelector('button[type=submit]'); btn.disabled = true; btn.classList.add('opacity-50', 'cursor-not-allowed'); btn.innerHTML = '<span class=\'material-symbols-outlined text-current\' style=\'font-size: inherit;\'>hourglass_empty</span> PROCESSING...'; return true;">
             @csrf
 
             {{-- Guild Name --}}
@@ -31,10 +31,7 @@
                        class="w-full bg-surface-container-lowest border-4 border-black p-4 text-on-surface font-body text-xl focus:ring-0 focus:border-secondary-container transition-colors outline-none placeholder:text-surface-variant"
                        placeholder="e.g., Mathematics 101 - The Arithmancers">
                 @error('name') 
-                    <div class="flex items-center gap-1 mt-1 text-error">
-                        <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">warning</span>
-                        <p class="font-headline text-[0.55rem] uppercase">{{ $message }}</p> 
-                    </div>
+                    <p class="text-red-500 text-[10px] mt-1 uppercase tracking-widest flex items-center gap-1"><span>⚠</span> {{ $message }}</p>
                 @enderror
             </div>
 
@@ -46,6 +43,9 @@
                 <textarea name="description" rows="4"
                           class="w-full bg-surface-container-lowest border-4 border-black p-4 text-on-surface font-body text-xl focus:ring-0 focus:border-secondary-container transition-colors outline-none placeholder:text-surface-variant resize-y" 
                           placeholder="Detail the purpose of this guild... Optional.">{{ old('description') }}</textarea>
+                @error('description') 
+                    <p class="text-red-500 text-[10px] mt-1 uppercase tracking-widest flex items-center gap-1"><span>⚠</span> {{ $message }}</p>
+                @enderror
             </div>
 
             {{-- Visibility --}}
@@ -82,10 +82,7 @@
                     </label>
                 </div>
                 @error('visibility')
-                    <div class="flex items-center gap-1 mt-1 text-error">
-                        <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">warning</span>
-                        <p class="font-headline text-[0.55rem] uppercase">{{ $message }}</p>
-                    </div>
+                    <p class="text-red-500 text-[10px] mt-1 uppercase tracking-widest flex items-center gap-1"><span>⚠</span> {{ $message }}</p>
                 @enderror
             </div>
 

@@ -25,11 +25,11 @@
                 
                 {{-- Guild Info --}}
                 <div class="flex-1">
-                    <h3 class="font-headline text-lg text-primary-container uppercase tracking-wider mb-2 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-secondary-container text-xl" style="font-variation-settings: 'FILL' 1;">school</span>
-                        {{ $classroom->name }}
+                    <h3 class="font-headline text-lg text-primary-container uppercase tracking-wider mb-2 flex items-center gap-2 break-words min-w-0">
+                        <span class="material-symbols-outlined text-secondary-container text-xl shrink-0" style="font-variation-settings: 'FILL' 1;">school</span>
+                        <span class="truncate max-w-[200px] md:max-w-md" title="{{ $classroom->name }}">{{ $classroom->name }}</span>
                     </h3>
-                    <p class="font-body text-xl text-on-surface-variant mb-4 max-w-2xl">
+                    <p class="font-body text-xl text-on-surface-variant mb-4 max-w-2xl break-words line-clamp-2" title="{{ $classroom->description }}">
                         {{ $classroom->description ?? 'No description provided.' }}
                     </p>
                     

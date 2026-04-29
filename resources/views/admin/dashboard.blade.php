@@ -53,10 +53,10 @@
             <x-pixel-card variant="low" padding="md" class="mb-6">
                 {{-- Guild Header --}}
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-4 border-b-2 border-outline-variant">
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary-container text-xl" style="font-variation-settings: 'FILL' 1;">fort</span>
-                        <div>
-                            <h3 class="font-headline text-[0.7rem] text-on-surface uppercase">{{ $classroom->name }}</h3>
+                    <div class="flex items-center gap-3 min-w-0">
+                        <span class="material-symbols-outlined text-primary-container text-xl shrink-0" style="font-variation-settings: 'FILL' 1;">fort</span>
+                        <div class="min-w-0">
+                            <h3 class="font-headline text-[0.7rem] text-on-surface uppercase truncate max-w-[150px] sm:max-w-xs" title="{{ $classroom->name }}">{{ $classroom->name }}</h3>
                             <p class="font-body text-base text-on-surface-variant">
                                 {{ $classroom->students_count }} {{ Str::plural('player', $classroom->students_count) }}
                             </p>

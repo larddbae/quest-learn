@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <form method="POST" action="{{ route('admin.materials.store') }}" class="space-y-6">
+        <form method="POST" action="{{ route('admin.materials.store') }}" class="space-y-6" novalidate onsubmit="let btn = this.querySelector('button[type=submit]'); btn.disabled = true; btn.classList.add('opacity-50', 'cursor-not-allowed'); btn.innerHTML = '<span class=\'material-symbols-outlined text-current\' style=\'font-size: inherit;\'>hourglass_empty</span> PROCESSING...'; return true;">
             @csrf
 
             {{-- Select Quest --}}
@@ -44,10 +44,7 @@
                     </div>
                 </div>
                 @error('quest_id')
-                    <div class="flex items-center gap-1 mt-1 text-error absolute -bottom-5 left-0">
-                        <span class="material-symbols-outlined text-sm">warning</span>
-                        <p class="font-headline text-[0.55rem] uppercase">{{ $message }}</p> 
-                    </div>
+                    <p class="text-red-500 text-[10px] mt-1 uppercase tracking-widest flex items-center gap-1"><span>⚠</span> {{ $message }}</p>
                 @enderror
             </div>
 
@@ -60,10 +57,7 @@
                        class="w-full bg-surface-container-lowest border-4 border-black p-4 text-on-surface font-body text-xl focus:ring-0 focus:border-secondary-container transition-colors outline-none placeholder:text-surface-variant"
                        placeholder="e.g., Chapter 1: The Basics">
                 @error('title') 
-                    <div class="flex items-center gap-1 mt-1 text-error absolute -bottom-5 left-0">
-                        <span class="material-symbols-outlined text-sm">warning</span>
-                        <p class="font-headline text-[0.55rem] uppercase">{{ $message }}</p> 
-                    </div>
+                    <p class="text-red-500 text-[10px] mt-1 uppercase tracking-widest flex items-center gap-1"><span>⚠</span> {{ $message }}</p>
                 @enderror
             </div>
 
@@ -76,6 +70,9 @@
                        class="w-full bg-surface-container-lowest border-4 border-black p-4 text-on-surface font-body text-xl focus:ring-0 focus:border-secondary-container transition-colors outline-none placeholder:text-surface-variant"
                        placeholder="https://youtube.com/watch?v=...">
                 <p class="font-body text-sm text-surface-variant mt-1">Leave empty if no visual log is required.</p>
+                @error('video_url') 
+                    <p class="text-red-500 text-[10px] mt-1 uppercase tracking-widest flex items-center gap-1"><span>⚠</span> {{ $message }}</p>
+                @enderror
             </div>
 
             {{-- Content --}}
@@ -89,10 +86,7 @@
                               placeholder="Type the learning material here. Use line breaks for paragraphs...">{{ old('content') }}</textarea>
                 </div>
                 @error('content') 
-                    <div class="flex items-center gap-1 mt-1 text-error">
-                        <span class="material-symbols-outlined text-sm">warning</span>
-                        <p class="font-headline text-[0.55rem] uppercase">{{ $message }}</p> 
-                    </div>
+                    <p class="text-red-500 text-[10px] mt-1 uppercase tracking-widest flex items-center gap-1"><span>⚠</span> {{ $message }}</p>
                 @enderror
             </div>
 

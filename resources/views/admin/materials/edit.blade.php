@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <form method="POST" action="{{ route('admin.materials.update', $material) }}" class="space-y-6">
+        <form method="POST" action="{{ route('admin.materials.update', $material) }}" class="space-y-6" novalidate onsubmit="let btn = this.querySelector('button[type=submit]'); btn.disabled = true; btn.classList.add('opacity-50', 'cursor-not-allowed'); btn.innerHTML = '<span class=\'material-symbols-outlined text-current\' style=\'font-size: inherit;\'>hourglass_empty</span> PROCESSING...'; return true;">
             @csrf @method('PUT')
 
             {{-- Select Quest --}}
@@ -44,10 +44,7 @@
                     </div>
                 </div>
                 @error('quest_id')
-                    <div class="flex items-center gap-1 mt-1 text-error absolute -bottom-5 left-0">
-                        <span class="material-symbols-outlined text-sm">warning</span>
-                        <p class="font-headline text-[0.55rem] uppercase">{{ $message }}</p> 
-                    </div>
+                    <p class="text-red-500 text-[10px] mt-1 uppercase tracking-widest flex items-center gap-1"><span>⚠</span> {{ $message }}</p>
                 @enderror
             </div>
 
@@ -58,6 +55,9 @@
                 </label>
                 <input type="text" name="title" value="{{ old('title', $material->title) }}" required
                        class="w-full bg-surface-container-lowest border-4 border-black p-4 text-on-surface font-body text-xl focus:ring-0 focus:border-secondary-container transition-colors outline-none placeholder:text-surface-variant">
+                @error('title') 
+                    <p class="text-red-500 text-[10px] mt-1 uppercase tracking-widest flex items-center gap-1"><span>⚠</span> {{ $message }}</p>
+                @enderror
             </div>
 
             {{-- Video --}}
@@ -67,6 +67,9 @@
                 </label>
                 <input type="url" name="video_url" value="{{ old('video_url', $material->video_url) }}"
                        class="w-full bg-surface-container-lowest border-4 border-black p-4 text-on-surface font-body text-xl focus:ring-0 focus:border-secondary-container transition-colors outline-none placeholder:text-surface-variant">
+                @error('video_url') 
+                    <p class="text-red-500 text-[10px] mt-1 uppercase tracking-widest flex items-center gap-1"><span>⚠</span> {{ $message }}</p>
+                @enderror
             </div>
 
             {{-- Content --}}
@@ -78,6 +81,9 @@
                     <textarea name="content" rows="12" required
                               class="w-full bg-surface-container-lowest border-2 border-black p-4 text-on-surface font-body text-xl focus:ring-0 outline-none resize-y max-h-96 overflow-y-auto">{{ old('content', $material->content) }}</textarea>
                 </div>
+                @error('content') 
+                    <p class="text-red-500 text-[10px] mt-1 uppercase tracking-widest flex items-center gap-1"><span>⚠</span> {{ $message }}</p>
+                @enderror
             </div>
 
             {{-- Actions --}}
