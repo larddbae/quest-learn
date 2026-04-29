@@ -68,6 +68,8 @@ Route::middleware(['auth', 'classroom'])->prefix('dashboard')->name('student.')-
 
     // Profile & Inventory
     Route::get('/profile', [Student\ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile', [Student\ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/{id}', [Student\ProfileController::class, 'showPublic'])->name('profile.public');
 
     // Leaderboard
     Route::get('/leaderboard', [Student\LeaderboardController::class, 'index'])->name('leaderboard');

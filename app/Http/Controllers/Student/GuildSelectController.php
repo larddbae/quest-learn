@@ -53,9 +53,10 @@ class GuildSelectController extends Controller
             });
         }
 
-        $publicGuilds = $publicGuildsQuery->latest()->get();
+        $publicGuilds = $publicGuildsQuery->latest()->paginate(6);
+        $tab = $request->input('tab', 'all');
 
-        return view('student.guild-select', compact('classrooms', 'publicGuilds'));
+        return view('student.guild-select', compact('classrooms', 'publicGuilds', 'tab'));
     }
 
     /**

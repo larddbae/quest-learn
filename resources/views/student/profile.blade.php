@@ -29,7 +29,19 @@
 
                     {{-- Title/Name --}}
                     <h2 class="font-headline text-lg text-primary-container uppercase text-center mb-1">{{ $user->name }}</h2>
-                    <p class="font-headline text-[0.6rem] text-secondary-container uppercase mb-4 tracking-widest">{{ $user->activeClassroom()->name ?? 'No Guild Assigned' }}</p>
+                    <p class="font-headline text-[0.6rem] text-secondary-container uppercase mb-2 tracking-widest">{{ $user->activeClassroom()->name ?? 'No Guild Assigned' }}</p>
+                    
+                    @if($user->bio)
+                        <p class="font-body text-sm text-on-surface text-center mb-4 px-4 italic border-l-2 border-surface-variant line-clamp-3">"{{ $user->bio }}"</p>
+                    @endif
+
+                    <div class="mb-4">
+                        <button type="button" onclick="document.getElementById('edit-profile-modal').classList.remove('hidden')" class="bg-primary hover:bg-primary/90 text-on-primary font-headline text-[0.6rem] uppercase tracking-wider px-4 py-2 border-2 border-black shadow-[2px_2px_0_0_#000] hover:shadow-[4px_4px_0_0_#000] hover:-translate-y-0.5 transition-all active:translate-y-0 active:shadow-none">
+                            <span class="flex items-center gap-1">
+                                <span class="material-symbols-outlined text-sm">edit</span> EDIT PROFILE
+                            </span>
+                        </button>
+                    </div>
 
                     {{-- Rank & Level Badges --}}
                     <div class="flex gap-4 w-full">
@@ -142,6 +154,56 @@
                 </div>
             </x-pixel-card>
             
+        </div>
+    </div>
+</div>
+
+{{-- Edit Profile Modal --}}
+<div id="edit-profile-modal" class="fixed inset-0 z-50 hidden bg-black/80 flex items-center justify-center p-4">
+    <div class="bg-surface border-4 border-black shadow-[8px_8px_0_0_#000] w-full max-w-lg overflow-hidden relative">
+        <div class="bg-primary px-4 py-3 border-b-4 border-black flex justify-between items-center">
+            <h3 class="font-headline text-on-primary text-lg uppercase tracking-widest">EDIT IDENTITY</h3>
+            <button type="button" onclick="document.getElementById('edit-profile-modal').classList.add('hidden')" class="text-on-primary hover:text-white">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div class="p-6 bg-surface-container">
+            <form action="{{ route('student.profile.update') }}" method="POST" class="space-y-6">
+                @csrf
+                @method('PUT')
+                
+                <div>
+                    <label class="block font-headline text-[0.6rem] text-on-surface uppercase mb-2">Player Name</label>
+                    <input type="text" name="name" value="{{ old('name', $user->name) }}" required class="w-full bg-background border-2 border-black p-3 font-body text-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-[inset_2px_2px_0_rgba(0,0,0,0.1)]">
+                </div>
+
+                <div>
+                    <label class="block font-headline text-[0.6rem] text-on-surface uppercase mb-2">Player Bio</label>
+                    <textarea name="bio" rows="3" class="w-full bg-background border-2 border-black p-3 font-body text-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-[inset_2px_2px_0_rgba(0,0,0,0.1)] placeholder-surface-variant" placeholder="Tell us about yourself...">{{ old('bio', $user->bio) }}</textarea>
+                </div>
+
+                <div>
+                    <label class="block font-headline text-[0.6rem] text-on-surface uppercase mb-2">Choose Avatar / Class</label>
+                    <div class="grid grid-cols-5 gap-3">
+                        @php
+                            $avatars = ['🧙', '🧝', '🧛', '🧜', '🗡️'];
+                        @endphp
+                        @foreach($avatars as $av)
+                            <label class="cursor-pointer">
+                                <input type="radio" name="avatar" value="{{ $av }}" class="peer sr-only" {{ old('avatar', $user->avatar) == $av ? 'checked' : '' }}>
+                                <div class="bg-background border-2 border-black aspect-square flex items-center justify-center text-3xl peer-checked:bg-primary-container peer-checked:border-primary peer-checked:shadow-[inset_0_0_0_4px_#000] hover:bg-surface-variant transition-colors">
+                                    {{ $av }}
+                                </div>
+                            </label>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-3 mt-8">
+                    <button type="button" onclick="document.getElementById('edit-profile-modal').classList.add('hidden')" class="bg-surface-variant text-on-surface-variant font-headline text-[0.65rem] uppercase px-4 py-2 border-2 border-black hover:-translate-y-0.5 hover:shadow-[2px_2px_0_0_#000] transition-all">CANCEL</button>
+                    <button type="submit" class="bg-primary text-on-primary font-headline text-[0.65rem] uppercase px-6 py-2 border-2 border-black hover:-translate-y-0.5 hover:shadow-[2px_2px_0_0_#000] transition-all">SAVE CHANGES</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

@@ -22,7 +22,7 @@ class QuestBoardController extends Controller
             ->with(['quests' => function ($q) {
                 $q->orderBy('order');
             }])
-            ->get();
+            ->paginate(5);
 
         // Attach unlock & progress status to each quest
         foreach ($subjects as $subject) {

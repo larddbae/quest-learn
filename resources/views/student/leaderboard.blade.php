@@ -27,7 +27,7 @@
         {{-- ============================================
              THE PODIUM (TOP 3)
              ============================================ --}}
-        @if($leaderboard->count() >= 3)
+        @if($leaderboard->currentPage() === 1 && $leaderboard->count() >= 3)
             <div class="flex flex-col md:flex-row items-end justify-center gap-4 md:gap-6 mb-12 max-w-3xl mx-auto">
                 
                 {{-- 2ND PLACE (SILVER) --}}
@@ -96,36 +96,39 @@
                         <tr class="{{ $rowClass }} h-16">
                             {{-- Rank # --}}
                             <td class="p-4 text-center">
-                                @if($index === 0)
+                                @php
+                                    $overallRank = ($leaderboard->currentPage() - 1) * $leaderboard->perPage() + $index;
+                                @endphp
+                                @if($overallRank === 0)
                                     <span class="font-headline text-lg {{ $isCurrentUser ? 'text-yellow-100' : 'text-primary-container' }}">1ST</span>
-                                @elseif($index === 1)
+                                @elseif($overallRank === 1)
                                     <span class="font-headline text-lg {{ $isCurrentUser ? 'text-slate-100' : 'text-slate-300' }}">2ND</span>
-                                @elseif($index === 2)
+                                @elseif($overallRank === 2)
                                     <span class="font-headline text-lg {{ $isCurrentUser ? 'text-orange-900' : 'text-[#b87333]' }}">3RD</span>
                                 @else
-                                    <span class="font-headline text-[0.7rem] {{ $mutedColor }}">{{ $index + 1 }}</span>
+                                    <span class="font-headline text-[0.7rem] {{ $mutedColor }}">{{ $overallRank + 1 }}</span>
                                 @endif
                             </td>
                             
                             {{-- Player Name & Avatar --}}
                             <td class="p-4">
-                                <div class="flex items-center gap-3">
+                                <a href="{{ route('student.profile.public', $player->id) }}" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
                                     <div class="w-10 h-10 border-2 border-black flex items-center justify-center bg-background shrink-0 select-none {{ $isCurrentUser ? 'shadow-[2px_2px_0_0_rgba(0,0,0,0.5)]' : '' }}">
-                                        @if($player->avatar && !in_array($player->avatar, ['🧙', '🧝', '🧛', '🧜', '']))
+                                        @if($player->avatar && !in_array($player->avatar, ['🧙', '🧝', '🧛', '🧜', '🗡️', '']))
                                             <img src="{{ asset('storage/' . $player->avatar) }}" alt="Avatar" class="w-full h-full object-cover">
                                         @else
                                             <span class="text-2xl">{{ $player->avatar ?? '🧙' }}</span>
                                         @endif
                                     </div>
                                     <div class="flex flex-col">
-                                        <span class="font-headline text-[0.7rem] uppercase {{ $textColor }} truncate max-w-[120px] sm:max-w-[200px]">
+                                        <span class="font-headline text-[0.7rem] uppercase {{ $textColor }} truncate max-w-[120px] sm:max-w-[200px] hover:underline">
                                             {{ $player->name }}
                                         </span>
                                         @if($isCurrentUser)
                                             <span class="font-headline text-[0.45rem] mt-1 bg-black text-white px-1 leading-none uppercase self-start">YOU</span>
                                         @endif
                                     </div>
-                                </div>
+                                </a>
                             </td>
 
                             {{-- Level --}}
@@ -153,6 +156,10 @@
                 </tbody>
             </table>
         </x-pixel-card>
+
+        <div class="mt-8">
+            {{ $leaderboard->links() }}
+        </div>
     @endif
 </div>
 @endsection

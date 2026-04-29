@@ -101,6 +101,10 @@
                 </div>
             @endif
         @endforeach
+        
+        <div class="mt-8">
+            {{ $subjects->links() }}
+        </div>
     @endif
 </div>
 @endsection
