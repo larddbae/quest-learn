@@ -19,11 +19,11 @@
             <x-pixel-card variant="low" padding="lg">
                 <div class="flex flex-col items-center">
                     {{-- Avatar --}}
-                    <div class="w-32 h-32 border-4 border-black bg-surface-container-high mb-4 flex items-center justify-center pixel-shadow shadow-[4px_4px_0_0_#000]">
-                        @if($user->avatar && !in_array($user->avatar, ['🧙', '🧝', '🧛', '🧜', '']))
+                    <div class="w-32 h-32 border-4 border-black bg-surface-container-high mb-4 flex items-center justify-center pixel-shadow shadow-[4px_4px_0_0_#000] overflow-hidden">
+                        @if($user->avatar && !in_array($user->avatar, ['🧙', '🧝', '🧛', '🧜', '🗡️', '']))
                             <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar" class="w-full h-full object-cover">
                         @else
-                            <div class="text-7xl animate-float">{{ $user->avatar ?? '🧙' }}</div>
+                            <span class="material-symbols-outlined text-primary-container text-7xl" style="font-variation-settings: 'FILL' 1;">person</span>
                         @endif
                     </div>
 
@@ -168,7 +168,7 @@
             </button>
         </div>
         <div class="p-6 bg-surface-container">
-            <form action="{{ route('student.profile.update') }}" method="POST" class="space-y-6">
+            <form action="{{ route('student.profile.update') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                 @csrf
                 @method('PUT')
                 
@@ -183,20 +183,8 @@
                 </div>
 
                 <div>
-                    <label class="block font-headline text-[0.6rem] text-on-surface uppercase mb-2">Choose Avatar / Class</label>
-                    <div class="grid grid-cols-5 gap-3">
-                        @php
-                            $avatars = ['🧙', '🧝', '🧛', '🧜', '🗡️'];
-                        @endphp
-                        @foreach($avatars as $av)
-                            <label class="cursor-pointer">
-                                <input type="radio" name="avatar" value="{{ $av }}" class="peer sr-only" {{ old('avatar', $user->avatar) == $av ? 'checked' : '' }}>
-                                <div class="bg-background border-2 border-black aspect-square flex items-center justify-center text-3xl peer-checked:bg-primary-container peer-checked:border-primary peer-checked:shadow-[inset_0_0_0_4px_#000] hover:bg-surface-variant transition-colors">
-                                    {{ $av }}
-                                </div>
-                            </label>
-                        @endforeach
-                    </div>
+                    <label class="block font-headline text-[0.6rem] text-on-surface uppercase mb-2">Choose Avatar</label>
+                    <input type="file" name="avatar" accept="image/*" class="pixel-input text-sm p-2">
                 </div>
 
                 <div class="flex justify-end gap-3 mt-8">

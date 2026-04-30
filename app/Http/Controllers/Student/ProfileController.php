@@ -34,10 +34,22 @@ class ProfileController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'bio' => 'nullable|string|max:500',
-            'avatar' => 'nullable|string|max:50',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        auth()->user()->update($validated);
+        $user = auth()->user();
+
+        if ($request->hasFile('avatar')) {
+            if ($user->avatar && !in_array($user->avatar, ['🧙', '🧝', '🧛', '🧜', '🗡️', '']) && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+            }
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $validated['avatar'] = $path;
+        } else {
+            unset($validated['avatar']);
+        }
+
+        $user->update($validated);
 
         return redirect()->route('student.profile')->with('success', 'Profile updated successfully.');
     }

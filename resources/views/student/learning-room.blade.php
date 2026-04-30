@@ -14,14 +14,14 @@
 
     {{-- Subject Filters --}}
     @if($availableSubjects->count() > 0)
-        <div class="flex overflow-x-auto gap-3 pb-4 mb-6 custom-scrollbar">
+        <div class="flex flex-wrap gap-3 pb-4 mb-6 custom-scrollbar">
             <a href="{{ route('student.learning-room') }}" 
-               class="{{ !$subjectId ? 'pixel-btn pixel-btn-gold pixel-btn-sm' : 'px-4 py-2 border-2 border-gray-500 text-gray-300 bg-transparent hover:text-white hover:border-white hover:bg-white/10 font-pixel text-xs md:text-sm tracking-widest' }} whitespace-nowrap transition-colors">
+               class="{{ !$subjectId ? 'px-4 py-2 border-2 border-pixel-gold bg-pixel-gold text-black font-pixel text-xs md:text-sm tracking-widest' : 'px-4 py-2 border-2 border-gray-500 text-gray-300 bg-transparent hover:text-white hover:border-white hover:bg-white/10 font-pixel text-xs md:text-sm tracking-widest' }} whitespace-nowrap transition-colors">
                 [ ALL ]
             </a>
             @foreach($availableSubjects as $subject)
                 <a href="{{ route('student.learning-room', ['subject_id' => $subject->id]) }}" 
-                   class="{{ $subjectId == $subject->id ? 'pixel-btn pixel-btn-gold pixel-btn-sm' : 'px-4 py-2 border-2 border-gray-500 text-gray-300 bg-transparent hover:text-white hover:border-white hover:bg-white/10 font-pixel text-xs md:text-sm tracking-widest' }} whitespace-nowrap transition-colors">
+                   class="{{ $subjectId == $subject->id ? 'px-4 py-2 border-2 border-pixel-gold bg-pixel-gold text-black font-pixel text-xs md:text-sm tracking-widest' : 'px-4 py-2 border-2 border-gray-500 text-gray-300 bg-transparent hover:text-white hover:border-white hover:bg-white/10 font-pixel text-xs md:text-sm tracking-widest' }} whitespace-nowrap transition-colors">
                     [ {{ strtoupper($subject->name) }} ]
                 </a>
             @endforeach

@@ -55,7 +55,11 @@
             <span class="material-symbols-outlined">menu</span>
         </button>
         <div class="w-10 h-10 border-2 border-black bg-surface-container-high flex items-center justify-center overflow-hidden" title="{{ auth()->user()->name }}">
-            <span class="material-symbols-outlined text-primary-container text-2xl" style="font-variation-settings: 'FILL' 1;">person</span>
+            @if(auth()->user()->avatar && !in_array(auth()->user()->avatar, ['🧙', '🧝', '🧛', '🧜', '🗡️', '']))
+                <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Avatar" class="w-full h-full object-cover">
+            @else
+                <span class="material-symbols-outlined text-primary-container text-2xl" style="font-variation-settings: 'FILL' 1;">person</span>
+            @endif
         </div>
     </div>
 </nav>
@@ -96,8 +100,12 @@
 
         {{-- Player Mini Status (mobile) --}}
         <div class="border-t-4 border-black mt-2 pt-3 px-4 flex items-center gap-3">
-            <div class="w-10 h-10 border-2 border-black bg-surface-container-high flex items-center justify-center">
-                <span class="material-symbols-outlined text-primary-container text-xl" style="font-variation-settings: 'FILL' 1;">person</span>
+            <div class="w-10 h-10 border-2 border-black bg-surface-container-high flex items-center justify-center overflow-hidden">
+                @if(auth()->user()->avatar && !in_array(auth()->user()->avatar, ['🧙', '🧝', '🧛', '🧜', '🗡️', '']))
+                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Avatar" class="w-full h-full object-cover">
+                @else
+                    <span class="material-symbols-outlined text-primary-container text-xl" style="font-variation-settings: 'FILL' 1;">person</span>
+                @endif
             </div>
             <div>
                 <p class="font-headline text-[9px] text-on-surface truncate">{{ auth()->user()->name }}</p>

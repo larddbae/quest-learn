@@ -47,17 +47,17 @@
     {{-- ============================================
          TABBED FILTER PILLS
          ============================================ --}}
-    <div class="flex overflow-x-auto gap-3 pb-4 mb-8 custom-scrollbar">
+    <div class="flex flex-wrap overflow-x-auto gap-3 pb-4 mb-8 custom-scrollbar">
         <a href="{{ route('student.guild-select', ['tab' => 'all', 'search' => request('search')]) }}" 
-           class="{{ $tab === 'all' ? 'pixel-btn pixel-btn-gold pixel-btn-sm' : 'px-4 py-2 border-2 border-gray-500 text-gray-300 bg-transparent hover:text-white hover:border-white hover:bg-white/10 font-headline text-xs md:text-sm tracking-widest' }} whitespace-nowrap transition-colors">
+           class="{{ $tab === 'all' ? 'px-4 py-2 border-2 border-pixel-gold bg-pixel-gold text-black font-headline text-xs md:text-sm tracking-widest' : 'px-4 py-2 border-2 border-gray-500 text-gray-300 bg-transparent hover:text-white hover:border-white hover:bg-white/10 font-headline text-xs md:text-sm tracking-widest' }} whitespace-nowrap transition-colors">
             [ ALL GUILDS ]
         </a>
         <a href="{{ route('student.guild-select', ['tab' => 'my', 'search' => request('search')]) }}" 
-           class="{{ $tab === 'my' ? 'pixel-btn pixel-btn-gold pixel-btn-sm' : 'px-4 py-2 border-2 border-gray-500 text-gray-300 bg-transparent hover:text-white hover:border-white hover:bg-white/10 font-headline text-xs md:text-sm tracking-widest' }} whitespace-nowrap transition-colors">
+           class="{{ $tab === 'my' ? 'px-4 py-2 border-2 border-pixel-gold bg-pixel-gold text-black font-headline text-xs md:text-sm tracking-widest' : 'px-4 py-2 border-2 border-gray-500 text-gray-300 bg-transparent hover:text-white hover:border-white hover:bg-white/10 font-headline text-xs md:text-sm tracking-widest' }} whitespace-nowrap transition-colors">
             [ MY GUILDS ]
         </a>
         <a href="{{ route('student.guild-select', ['tab' => 'public', 'search' => request('search')]) }}" 
-           class="{{ $tab === 'public' ? 'pixel-btn pixel-btn-gold pixel-btn-sm' : 'px-4 py-2 border-2 border-gray-500 text-gray-300 bg-transparent hover:text-white hover:border-white hover:bg-white/10 font-headline text-xs md:text-sm tracking-widest' }} whitespace-nowrap transition-colors">
+           class="{{ $tab === 'public' ? 'px-4 py-2 border-2 border-pixel-gold bg-pixel-gold text-black font-headline text-xs md:text-sm tracking-widest' : 'px-4 py-2 border-2 border-gray-500 text-gray-300 bg-transparent hover:text-white hover:border-white hover:bg-white/10 font-headline text-xs md:text-sm tracking-widest' }} whitespace-nowrap transition-colors">
             [ PUBLIC EXPLORE ]
         </a>
     </div>

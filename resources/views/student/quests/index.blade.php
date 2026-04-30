@@ -54,12 +54,12 @@
 
                     {{-- Quest Content --}}
                     <div class="flex-1 min-w-0">
-                        <h3 class="font-headline text-sm mb-2 {{ $isUnlocked ? 'text-on-surface' : 'text-surface-variant' }} uppercase">
+                        <h3 class="font-headline text-sm mb-2 {{ $isUnlocked ? 'text-on-surface' : 'text-surface-variant' }} uppercase truncate max-w-[200px] md:max-w-md">
                             {{ $quest->title }}
                         </h3>
                         
                         @if($quest->description)
-                            <p class="font-body text-lg mb-4 {{ $isUnlocked ? 'text-on-surface-variant' : 'text-surface-variant' }}">
+                            <p class="font-body text-lg mb-4 {{ $isUnlocked ? 'text-on-surface-variant' : 'text-surface-variant' }} break-words break-all">
                                 {{ Str::limit($quest->description, 100) }}
                             </p>
                         @endif

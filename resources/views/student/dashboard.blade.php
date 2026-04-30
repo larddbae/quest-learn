@@ -14,7 +14,7 @@
                 {{-- Avatar Frame --}}
                 <div class="w-40 h-40 border-4 border-black bg-surface-container-lowest p-1 pixel-shadow">
                     <div class="w-full h-full flex items-center justify-center text-7xl animate-float pixel-image bg-surface-container overflow-hidden">
-                        @if($user->avatar && !in_array($user->avatar, ['🧙', '🧝', '🧛', '🧜']))
+                        @if($user->avatar && !in_array($user->avatar, ['🧙', '🧝', '🧛', '🧜', '🗡️', '']))
                             <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar" class="w-full h-full object-cover pixel-image">
                         @else
                             <span class="material-symbols-outlined text-primary-container text-8xl" style="font-variation-settings: 'FILL' 1;">person</span>
