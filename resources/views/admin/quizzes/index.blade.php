@@ -37,10 +37,10 @@
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-surface-container-high border-b-4 border-black">
-                        <th class="p-4 font-headline text-[0.6rem] text-surface-variant uppercase">LORE MATERIAL ORIGIN</th>
-                        <th class="p-4 font-headline text-[0.6rem] text-surface-variant uppercase">ENEMY PROMPT (QUESTION)</th>
-                        <th class="p-4 font-headline text-[0.6rem] text-surface-variant uppercase text-center hidden md:table-cell">TARGET ACTION (ANSWER)</th>
-                        <th class="p-4 font-headline text-[0.6rem] text-error uppercase text-right">ACTIONS</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-gray-200 uppercase">LORE MATERIAL ORIGIN</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-gray-200 uppercase">ENEMY PROMPT (QUESTION)</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-gray-200 uppercase text-center hidden md:table-cell">TARGET ACTION (ANSWER)</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-gray-200 uppercase text-right">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,15 +50,15 @@
                             <td class="p-4 w-1/3">
                                 <div class="flex flex-col gap-1 items-start">
                                     <div class="flex items-center gap-1">
-                                        <span class="font-headline text-[0.5rem] bg-surface-container-highest border border-surface-variant/30 px-1.5 py-0.5 uppercase text-surface-variant limit-text">
+                                        <span class="font-headline text-[0.5rem] bg-surface-container-highest border border-surface-variant/30 px-1.5 py-0.5 uppercase text-gray-300 limit-text">
                                             {{ $quiz->material->quest->subject->classroom->name ?? 'NO GUILD' }}
                                         </span>
                                     </div>
                                     <div class="flex flex-col gap-1 mt-1">
-                                        <span class="font-headline text-[0.55rem] text-primary-container px-1 uppercase tracking-wider">
+                                        <span class="font-headline text-[0.55rem] text-gray-200 px-1 uppercase tracking-wider">
                                             Q: {{ $quiz->material->quest->title ?? 'NO QUEST' }}
                                         </span>
-                                        <span class="font-headline text-[0.6rem] bg-background border border-secondary-container/50 px-2 py-1 uppercase text-secondary-container shadow-[2px_2px_0_0_#000]">
+                                        <span class="font-headline text-[0.6rem] bg-background border border-secondary-container/50 px-2 py-1 uppercase text-gray-200 shadow-[2px_2px_0_0_#000]">
                                             L: {{ $quiz->material->title ?? 'NO LORE' }}
                                         </span>
                                     </div>
@@ -67,7 +67,7 @@
 
                             {{-- Question --}}
                             <td class="p-4 w-1/3">
-                                <div class="font-body text-md font-bold text-error break-words whitespace-normal max-w-[250px] leading-tight">
+                                <div class="font-body text-md font-bold text-white break-words whitespace-normal max-w-[250px] leading-tight">
                                     {{ $quiz->question }}
                                 </div>
                             </td>

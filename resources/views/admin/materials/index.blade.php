@@ -37,10 +37,10 @@
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-surface-container-high border-b-4 border-black">
-                        <th class="p-4 font-headline text-[0.6rem] text-surface-variant uppercase">PARENT HIERARCHY</th>
-                        <th class="p-4 font-headline text-[0.6rem] text-surface-variant uppercase">LORE MATERIAL</th>
-                        <th class="p-4 font-headline text-[0.6rem] text-surface-variant uppercase text-center hidden md:table-cell">MEDIA</th>
-                        <th class="p-4 font-headline text-[0.6rem] text-secondary-container uppercase text-right">ACTIONS</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-gray-200 uppercase">PARENT HIERARCHY</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-gray-200 uppercase">LORE MATERIAL</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-gray-200 uppercase text-center hidden md:table-cell">MEDIA</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-gray-200 uppercase text-right">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,15 +50,15 @@
                             <td class="p-4 w-1/3">
                                 <div class="flex flex-col gap-1 items-start">
                                     <div class="flex items-center gap-1">
-                                        <span class="font-headline text-[0.5rem] bg-surface-container-highest border border-surface-variant/30 px-1.5 py-0.5 uppercase text-surface-variant">
+                                        <span class="font-headline text-[0.5rem] bg-surface-container-highest border border-surface-variant/30 px-1.5 py-0.5 uppercase text-gray-300">
                                             {{ $material->quest->subject->classroom->name ?? 'NO GUILD' }}
                                         </span>
-                                        <span class="material-symbols-outlined text-[0.6rem] text-surface-variant">chevron_right</span>
-                                        <span class="font-headline text-[0.55rem] bg-surface-container-highest border border-surface-variant/30 px-1.5 py-0.5 uppercase text-surface-variant">
+                                        <span class="material-symbols-outlined text-[0.6rem] text-gray-400">chevron_right</span>
+                                        <span class="font-headline text-[0.55rem] bg-surface-container-highest border border-surface-variant/30 px-1.5 py-0.5 uppercase text-gray-300">
                                             {{ $material->quest->subject->name ?? 'NO SUBJECT' }}
                                         </span>
                                     </div>
-                                    <span class="font-headline text-[0.65rem] bg-background border border-primary-container/50 px-2 py-1 uppercase text-primary-container shadow-[2px_2px_0_0_#000] mt-1">
+                                    <span class="font-headline text-[0.65rem] bg-background border border-primary-container/50 px-2 py-1 uppercase text-gray-200 shadow-[2px_2px_0_0_#000] mt-1">
                                         {{ $material->quest->title ?? 'NO QUEST' }}
                                     </span>
                                 </div>
@@ -66,8 +66,8 @@
 
                             {{-- Material Title --}}
                             <td class="p-4 w-1/3">
-                                <div class="font-body text-lg font-bold text-secondary-container">{{ $material->title }}</div>
-                                <div class="font-body text-xs text-surface-variant truncate max-w-[200px]" title="{{ strip_tags($material->content) }}">
+                                <div class="font-body text-lg font-bold text-white">{{ $material->title }}</div>
+                                <div class="font-body text-xs text-gray-300 truncate max-w-[200px]" title="{{ strip_tags($material->content) }}">
                                     {{ Str::limit(strip_tags($material->content), 30) }}
                                 </div>
                             </td>

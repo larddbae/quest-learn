@@ -37,10 +37,10 @@
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-surface-container-high border-b-4 border-black">
-                        <th class="p-4 font-headline text-[0.6rem] text-surface-variant uppercase">GUILD & SUBJECT</th>
-                        <th class="p-4 font-headline text-[0.6rem] text-surface-variant uppercase">QUEST NODE</th>
-                        <th class="p-4 font-headline text-[0.6rem] text-surface-variant uppercase text-center hidden md:table-cell">ORDER & XP</th>
-                        <th class="p-4 font-headline text-[0.6rem] text-primary-container uppercase text-right">ACTIONS</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-gray-200 uppercase">GUILD & SUBJECT</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-gray-200 uppercase">QUEST NODE</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-gray-200 uppercase text-center hidden md:table-cell">ORDER & XP</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-gray-200 uppercase text-right">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,10 +49,10 @@
                             {{-- Parents --}}
                             <td class="p-4 w-1/3">
                                 <div class="flex flex-col gap-1 items-start">
-                                    <span class="font-headline text-[0.55rem] bg-surface-container-highest border border-surface-variant/30 px-2 py-0.5 uppercase text-surface-variant shadow-[1px_1px_0_0_#000] truncate max-w-[150px] md:max-w-[200px] inline-block" title="{{ $quest->subject->classroom->name ?? 'NO GUILD' }}">
+                                    <span class="font-headline text-[0.55rem] bg-surface-container-highest border border-surface-variant/30 px-2 py-0.5 uppercase text-gray-300 shadow-[1px_1px_0_0_#000] truncate max-w-[150px] md:max-w-[200px] inline-block" title="{{ $quest->subject->classroom->name ?? 'NO GUILD' }}">
                                         {{ $quest->subject->classroom->name ?? 'NO GUILD' }}
                                     </span>
-                                    <span class="font-headline text-[0.65rem] bg-background border border-primary-container/50 px-2 py-1 uppercase text-primary-container shadow-[2px_2px_0_0_#000] truncate max-w-[150px] md:max-w-[200px] inline-block" title="{{ $quest->subject->name ?? 'NO SUBJECT' }}">
+                                    <span class="font-headline text-[0.65rem] bg-background border border-primary-container/50 px-2 py-1 uppercase text-gray-200 shadow-[2px_2px_0_0_#000] truncate max-w-[150px] md:max-w-[200px] inline-block" title="{{ $quest->subject->name ?? 'NO SUBJECT' }}">
                                         {{ $quest->subject->name ?? 'NO SUBJECT' }}
                                     </span>
                                 </div>
@@ -60,8 +60,8 @@
 
                             {{-- Quest Title --}}
                             <td class="p-4 w-1/3">
-                                <div class="font-body text-lg font-bold text-primary-container truncate max-w-[150px] md:max-w-xs" title="{{ $quest->title }}">{{ $quest->title }}</div>
-                                <div class="font-body text-xs text-surface-variant truncate max-w-[200px]" title="{{ $quest->description }}">
+                                <div class="font-body text-lg font-bold text-white truncate max-w-[150px] md:max-w-xs" title="{{ $quest->title }}">{{ $quest->title }}</div>
+                                <div class="font-body text-xs text-gray-300 truncate max-w-[200px]" title="{{ $quest->description }}">
                                     {{ $quest->description ?: 'No description' }}
                                 </div>
                             </td>

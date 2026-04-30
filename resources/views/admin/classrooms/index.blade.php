@@ -34,6 +34,19 @@
                     </p>
                     
                     <div class="flex flex-wrap items-center gap-4">
+                        {{-- Visibility Badge --}}
+                        @if($classroom->visibility === 'public')
+                            <div class="bg-[#10b981] border-2 border-black px-3 py-1 flex items-center gap-1 shadow-[2px_2px_0_0_#000]" title="Public Guild">
+                                <span class="material-symbols-outlined text-black text-sm">public</span>
+                                <span class="font-headline text-[0.6rem] text-black uppercase tracking-wider">PUBLIC</span>
+                            </div>
+                        @else
+                            <div class="bg-[#f43f5e] border-2 border-black px-3 py-1 flex items-center gap-1 shadow-[2px_2px_0_0_#000]" title="Private Guild">
+                                <span class="material-symbols-outlined text-white text-sm">lock</span>
+                                <span class="font-headline text-[0.6rem] text-white uppercase tracking-wider">PRIVATE</span>
+                            </div>
+                        @endif
+
                         {{-- Secret Join Code --}}
                         <div class="bg-black border-4 border-primary-container px-4 py-2 flex items-center gap-3">
                             <span class="material-symbols-outlined text-primary-container text-lg">key</span>

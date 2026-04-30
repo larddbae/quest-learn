@@ -78,6 +78,14 @@
             <span class="material-symbols-outlined">military_tech</span>
             Badge Forge
         </a>
+        <a href="{{ route('admin.profile') }}"
+           class="flex items-center gap-3 px-4 py-3 font-headline text-[0.7rem] uppercase tracking-wider transition-all duration-75
+                  {{ request()->routeIs('admin.profile')
+                      ? 'bg-surface-container-high text-primary-container border-l-4 border-primary-container translate-x-1'
+                      : 'text-[#3a86ff] hover:text-white hover:bg-surface-container-high hover:translate-x-1' }}">
+            <span class="material-symbols-outlined">badge</span>
+            Edit Identity
+        </a>
     </nav>
 
     {{-- Bottom Section: Settings + Logout --}}

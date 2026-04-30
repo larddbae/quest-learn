@@ -105,4 +105,8 @@ Route::middleware(['auth', 'role:teacher'])->prefix('admin')->name('admin.')->gr
 
     // Badge Management
     Route::resource('badges', Admin\BadgeController::class);
+
+    // Profile Management
+    Route::get('/profile', [Admin\ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile', [Admin\ProfileController::class, 'update'])->name('profile.update');
 });

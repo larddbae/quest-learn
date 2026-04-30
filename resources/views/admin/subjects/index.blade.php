@@ -37,10 +37,10 @@
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-surface-container-high border-b-4 border-black">
-                        <th class="p-4 font-headline text-[0.6rem] text-surface-variant uppercase">GUILD</th>
-                        <th class="p-4 font-headline text-[0.6rem] text-surface-variant uppercase">SUBJECT</th>
-                        <th class="p-4 font-headline text-[0.6rem] text-surface-variant uppercase hidden md:table-cell">CODEX (DESC)</th>
-                        <th class="p-4 font-headline text-[0.6rem] text-primary-container uppercase text-right">ACTIONS</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-gray-200 uppercase">GUILD</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-gray-200 uppercase">SUBJECT</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-gray-200 uppercase hidden md:table-cell">CODEX (DESC)</th>
+                        <th class="p-4 font-headline text-[0.6rem] text-gray-200 uppercase text-right">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,19 +48,19 @@
                         <tr class="border-b-2 border-surface-container hover:bg-surface-container transition-colors text-on-surface h-16 group">
                             {{-- Guild --}}
                             <td class="p-4 w-1/4">
-                                <span class="font-headline text-[0.65rem] bg-surface-container-highest border border-surface-variant/30 px-2 py-1 uppercase text-surface-variant shadow-[2px_2px_0_0_#000]">
+                                <span class="font-headline text-[0.65rem] bg-surface-container-highest border border-surface-variant/30 px-2 py-1 uppercase text-gray-200 shadow-[2px_2px_0_0_#000]">
                                     {{ $subject->classroom->name ?? 'NO GUILD' }}
                                 </span>
                             </td>
 
                             {{-- Subject Name --}}
                             <td class="p-4 w-1/4">
-                                <div class="font-body text-lg font-bold text-primary-container">{{ $subject->name }}</div>
+                                <div class="font-body text-lg font-bold text-white">{{ $subject->name }}</div>
                             </td>
 
                             {{-- Description --}}
                             <td class="p-4 hidden md:table-cell w-1/3">
-                                <div class="font-body text-sm text-surface-variant truncate max-w-[250px]" title="{{ $subject->description }}">
+                                <div class="font-body text-sm text-gray-300 truncate max-w-[250px]" title="{{ $subject->description }}">
                                     {{ $subject->description ?: 'No description' }}
                                 </div>
                             </td>
