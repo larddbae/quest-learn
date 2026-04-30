@@ -40,7 +40,18 @@ class SubjectController extends Controller
         $classroom = Classroom::findOrFail($validated['classroom_id']);
         $this->authorizeClassroom($classroom);
 
-        $classroom->subjects()->create($validated);
+        $subject = $classroom->subjects()->create($validated);
+
+        $students = $classroom->students;
+        if ($students->count() > 0) {
+            \Illuminate\Support\Facades\Notification::send($students, new \App\Notifications\SystemAlert([
+                'title' => 'New Subject Added!',
+                'message' => "The subject '{$subject->name}' is now available.",
+                'url' => route('student.subjects.index'),
+                'icon' => 'menu_book',
+                'icon_color' => 'secondary-container',
+            ]));
+        }
 
         return redirect()->route('admin.subjects.index')
             ->with('success', 'Subject created!');

@@ -45,7 +45,18 @@ class QuestController extends Controller
         $subject = Subject::findOrFail($validated['subject_id']);
         $this->authorizeSubject($subject);
 
-        $subject->quests()->create($validated);
+        $quest = $subject->quests()->create($validated);
+
+        $students = $subject->classroom->students;
+        if ($students->count() > 0) {
+            \Illuminate\Support\Facades\Notification::send($students, new \App\Notifications\SystemAlert([
+                'title' => 'New Quest Available!',
+                'message' => "The quest '{$quest->title}' has been added to {$subject->name}.",
+                'url' => route('student.quests.index', $subject->id),
+                'icon' => 'explore',
+                'icon_color' => 'primary-container',
+            ]));
+        }
 
         return redirect()->route('admin.quests.index')
             ->with('success', 'Quest created!');

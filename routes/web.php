@@ -45,6 +45,9 @@ Route::middleware(['auth', 'classroom'])->prefix('dashboard')->name('student.')-
     Route::post('/guild-select', [Student\GuildSelectController::class, 'set'])->name('guild-select.set')->withoutMiddleware('classroom');
     Route::post('/guild-select/join-public', [Student\GuildSelectController::class, 'joinPublic'])->name('guild-select.join-public')->withoutMiddleware('classroom');
 
+    // Notifications
+    Route::post('/notifications/mark-read', [Student\NotificationController::class, 'markAsRead'])->name('notifications.mark-read');
+
     // Dashboard
     Route::get('/', [Student\DashboardController::class, 'index'])->name('dashboard');
 
