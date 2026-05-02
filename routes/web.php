@@ -109,4 +109,7 @@ Route::middleware(['auth', 'role:teacher'])->prefix('admin')->name('admin.')->gr
     // Profile Management
     Route::get('/profile', [Admin\ProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [Admin\ProfileController::class, 'update'])->name('profile.update');
+
+    // Player Dossier
+    Route::get('/players/{user}', [Admin\PlayerReportController::class, 'show'])->name('players.show');
 });

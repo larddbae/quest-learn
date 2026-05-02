@@ -57,41 +57,50 @@
     @else
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             @foreach($students as $student)
-                <x-pixel-card variant="low" padding="md" class="hover:-translate-y-1 transition-transform relative overflow-hidden group">
-                    {{-- Online Indicator --}}
-                    <div class="absolute top-3 right-3 w-3 h-3 bg-secondary-container rounded-full animate-pulse border-2 border-black" title="System Link Active"></div>
-                    
-                    <div class="flex flex-col items-center text-center">
-                        {{-- Avatar --}}
-                        <div class="w-20 h-20 border-4 border-black bg-surface-container-high flex items-center justify-center mb-3 shadow-[4px_4px_0_0_#000] group-hover:scale-105 transition-transform">
-                            @if($student->avatar && strlen($student->avatar) > 10)
-                                {{-- It's an uploaded file path --}}
-                                <img src="{{ asset('storage/' . $student->avatar) }}" alt="{{ $student->name }}" class="w-full h-full object-cover pixel-corners">
-                            @else
-                                {{-- It's an old default emoji or null --}}
-                                <div class="text-4xl">{{ $student->avatar ?? '🧙♂️' }}</div>
-                            @endif
-                        </div>
-
-                        {{-- Name & Rank --}}
-                        <h3 class="font-headline text-[0.7rem] text-primary-container uppercase truncate w-full px-2 mb-1">{{ $student->name }}</h3>
-                        <span class="font-headline text-[0.55rem] text-secondary-container rank-badge rank-{{ strtolower($student->rank) }} leading-none mb-4">
-                            {{ $student->rank }}
-                        </span>
-
-                        {{-- Stats --}}
-                        <div class="w-full grid grid-cols-2 gap-2 mt-auto">
-                            <div class="bg-surface-container border-2 border-black py-2 flex flex-col items-center justify-center">
-                                <span class="font-headline text-[0.45rem] text-surface-variant uppercase mb-1">LEVEL</span>
-                                <span class="font-headline text-sm text-on-surface">{{ $student->level }}</span>
+                <a href="{{ route('admin.players.show', $student->id) }}" class="block outline-none focus:ring-4 focus:ring-primary-container rounded-none">
+                    <x-pixel-card variant="low" padding="md" class="hover:-translate-y-1 hover:bg-surface-container-high transition-transform relative overflow-hidden group h-full flex flex-col cursor-pointer">
+                        {{-- Online Indicator --}}
+                        <div class="absolute top-3 right-3 w-3 h-3 bg-secondary-container rounded-full animate-pulse border-2 border-black" title="System Link Active"></div>
+                        
+                        <div class="flex flex-col items-center text-center flex-grow">
+                            {{-- Avatar --}}
+                            <div class="w-20 h-20 border-4 border-black bg-surface-container-high flex items-center justify-center mb-3 shadow-[4px_4px_0_0_#000] group-hover:scale-105 transition-transform">
+                                @if($student->avatar && strlen($student->avatar) > 10)
+                                    {{-- It's an uploaded file path --}}
+                                    <img src="{{ asset('storage/' . $student->avatar) }}" alt="{{ $student->name }}" class="w-full h-full object-cover pixel-corners">
+                                @else
+                                    {{-- It's an old default emoji or null --}}
+                                    <div class="text-4xl">{{ $student->avatar ?? '🧙♂️' }}</div>
+                                @endif
                             </div>
-                            <div class="bg-surface-container border-2 border-black py-2 flex flex-col items-center justify-center">
-                                <span class="font-headline text-[0.45rem] text-surface-variant uppercase mb-1">XP</span>
-                                <span class="font-headline text-sm text-primary-container">{{ number_format($student->xp) }}</span>
+
+                            {{-- Name & Rank --}}
+                            <h3 class="font-headline text-[0.7rem] text-primary-container uppercase truncate w-full px-2 mb-1">{{ $student->name }}</h3>
+                            <span class="font-headline text-[0.55rem] text-secondary-container rank-badge rank-{{ strtolower($student->rank) }} leading-none mb-4">
+                                {{ $student->rank }}
+                            </span>
+
+                            {{-- Stats --}}
+                            <div class="w-full grid grid-cols-2 gap-2 mt-auto mb-3">
+                                <div class="bg-surface-container border-2 border-black py-2 flex flex-col items-center justify-center">
+                                    <span class="font-headline text-[0.45rem] text-surface-variant uppercase mb-1">LEVEL</span>
+                                    <span class="font-headline text-sm text-on-surface">{{ $student->level }}</span>
+                                </div>
+                                <div class="bg-surface-container border-2 border-black py-2 flex flex-col items-center justify-center">
+                                    <span class="font-headline text-[0.45rem] text-surface-variant uppercase mb-1">XP</span>
+                                    <span class="font-headline text-sm text-primary-container">{{ number_format($student->xp) }}</span>
+                                </div>
+                            </div>
+                            
+                            {{-- Inspect Button --}}
+                            <div class="w-full mt-auto">
+                                <div class="bg-primary-container text-on-primary-container font-headline text-[0.6rem] uppercase py-2 border-2 border-black w-full text-center group-hover:bg-primary-container/80 transition-colors">
+                                    [ INSPECT PLAYER ]
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </x-pixel-card>
+                    </x-pixel-card>
+                </a>
             @endforeach
         </div>
     @endif
