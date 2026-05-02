@@ -93,7 +93,11 @@
         {{-- GM Info --}}
         <div class="p-2 bg-background border-2 border-black mb-4">
             <div class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-tertiary-fixed">account_circle</span>
+                @if(auth()->user()->avatar && strlen(auth()->user()->avatar) > 10)
+                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" class="w-8 h-8 object-cover rounded-sm border border-gray-600">
+                @else
+                    <span class="material-symbols-outlined text-tertiary-fixed">account_circle</span>
+                @endif
                 <div>
                     <p class="font-headline text-[8px] text-on-surface truncate max-w-[140px]">{{ auth()->user()->name }}</p>
                     <p class="font-headline text-[7px] text-primary-container">GAME MASTER</p>
@@ -125,16 +129,7 @@
     <h1 class="font-headline text-primary-container uppercase text-sm hidden sm:block">GM HUD v1.0</h1>
 
     <div class="flex items-center gap-4 md:gap-8">
-        {{-- Notification & Shield Icons --}}
-        <div class="flex items-center gap-4 text-primary-container">
-            <span class="material-symbols-outlined hover:text-secondary-container cursor-pointer">notifications</span>
-            <span class="material-symbols-outlined hover:text-secondary-container cursor-pointer hidden sm:inline">shield</span>
-        </div>
-        {{-- Admin Name --}}
-        <div class="flex items-center gap-2 border-l-2 border-black pl-4">
-            <span class="material-symbols-outlined text-tertiary-fixed">account_circle</span>
-            <span class="font-body text-xl text-on-surface hidden sm:inline">{{ auth()->user()->name }}</span>
-        </div>
+        {{-- Top Right Section Cleared --}}
     </div>
 </header>
 

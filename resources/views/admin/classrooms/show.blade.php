@@ -63,8 +63,14 @@
                     
                     <div class="flex flex-col items-center text-center">
                         {{-- Avatar --}}
-                        <div class="w-20 h-20 border-4 border-black bg-surface-container-high flex items-center justify-center text-4xl mb-3 shadow-[4px_4px_0_0_#000] group-hover:scale-105 transition-transform">
-                            {{ $student->avatar ?? '🧙' }}
+                        <div class="w-20 h-20 border-4 border-black bg-surface-container-high flex items-center justify-center mb-3 shadow-[4px_4px_0_0_#000] group-hover:scale-105 transition-transform">
+                            @if($student->avatar && strlen($student->avatar) > 10)
+                                {{-- It's an uploaded file path --}}
+                                <img src="{{ asset('storage/' . $student->avatar) }}" alt="{{ $student->name }}" class="w-full h-full object-cover pixel-corners">
+                            @else
+                                {{-- It's an old default emoji or null --}}
+                                <div class="text-4xl">{{ $student->avatar ?? '🧙♂️' }}</div>
+                            @endif
                         </div>
 
                         {{-- Name & Rank --}}
