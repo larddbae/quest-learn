@@ -5,6 +5,13 @@
 <header class="bg-background text-primary-container font-headline uppercase tracking-wider text-[0.75rem] fixed top-0 w-full border-b-4 border-black shadow-[4px_4px_0px_0px_#000000] flex justify-between items-center px-6 py-4 z-50">
     <div class="flex items-center gap-4">
         <a href="{{ url('/') }}" class="text-xl font-bold text-primary-container tracking-tighter hover:text-primary-fixed transition-colors">QUESTLEARN</a>
+        @if(request()->routeIs('welcome') || request()->is('/'))
+        <nav class="hidden md:flex items-center gap-6 ml-6">
+            <a href="#lore" class="pixel-nav-link text-[0.6rem]">LORE</a>
+            <a href="#mechanics" class="pixel-nav-link text-[0.6rem]">MECHANICS</a>
+            <a href="#classes" class="pixel-nav-link text-[0.6rem]">CLASSES</a>
+        </nav>
+        @endif
     </div>
     
     <div class="flex items-center gap-4">
@@ -21,12 +28,12 @@
 </header>
 
 {{-- Main Content --}}
-<div class="pt-20 pb-20">
+<div class="pt-20">
     @yield('guest-content')
 </div>
 
 {{-- Footer --}}
-<footer class="bg-background text-secondary-container font-body text-lg fixed bottom-0 w-full border-t-4 border-black flex flex-col md:flex-row justify-between items-center px-8 py-6 z-50">
+<footer class="bg-surface-container-lowest text-secondary-container font-body text-lg w-full border-t-4 border-black flex flex-col md:flex-row justify-between items-center px-8 py-6 z-40">
     <div class="text-primary-container font-headline text-xs mb-4 md:mb-0">
         QUESTLEARN // V 1.0.4
     </div>

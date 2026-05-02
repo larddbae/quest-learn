@@ -776,6 +776,39 @@ h1, h2, h3, h4, h5, h6,
     animation: pixel-fade-in 0.3s ease forwards;
 }
 
+/* Smooth scroll for anchor links */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Bouncing scroll arrow */
+@keyframes pixel-bounce-down {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(12px); }
+}
+
+.animate-bounce-down {
+    animation: pixel-bounce-down 1.5s ease-in-out infinite;
+}
+
+/* Scroll-triggered reveal */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger delays for bento children */
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+
 /* ============================================
    LOCK / QUEST ICONS (CSS-only)
    ============================================ */
