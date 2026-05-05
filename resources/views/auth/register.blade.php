@@ -1,8 +1,8 @@
-@extends('layouts.guest')
+@extends('layouts.public')
 
 @section('title', 'Create Your Character')
 
-@section('guest-content')
+@section('public-content')
 <div class="min-h-screen flex items-center justify-center pt-24 pb-32 px-4 overflow-x-hidden relative">
     {{-- Background Dot Grid --}}
     <div class="fixed inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#1c1c3b 1px, transparent 1px); background-size: 20px 20px;"></div>

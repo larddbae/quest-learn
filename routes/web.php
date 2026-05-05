@@ -27,6 +27,11 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
 });
 
+// Static Pages
+Route::view('/terms', 'pages.terms')->name('terms');
+Route::view('/privacy', 'pages.privacy')->name('privacy');
+Route::view('/support', 'pages.support')->name('support');
+
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
 /*

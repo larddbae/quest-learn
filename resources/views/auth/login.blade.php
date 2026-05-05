@@ -1,8 +1,8 @@
-@extends('layouts.guest')
+@extends('layouts.public')
 
 @section('title', 'Player Login')
 
-@section('guest-content')
+@section('public-content')
 
 
 {{-- Main Content --}}

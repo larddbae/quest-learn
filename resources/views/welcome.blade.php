@@ -1,8 +1,8 @@
-@extends('layouts.base')
+@extends('layouts.public')
 
 @section('title', 'QuestLearn — Level Up Your Knowledge')
 
-@section('content')
+@section('public-content')
 
 {{-- ============================================================
      CUSTOM STYLES FOR LANDING PAGE
@@ -33,26 +33,6 @@
     }
 </style>
 
-{{-- ============================================================
-     NAVBAR — Fixed Top Navigation
-     ============================================================ --}}
-<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-background border-b-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-    <div class="text-2xl font-headline text-primary-container tracking-tighter">
-        <a href="{{ url('/') }}">QUESTLEARN</a>
-    </div>
-    <div class="hidden md:flex space-x-6">
-        <a class="font-headline uppercase tracking-wider text-[0.75rem] text-primary-container border-b-4 border-primary-container pb-1 hover:bg-surface-container-high hover:translate-y-[2px] transition-all" href="#hero">QUESTS</a>
-        <a class="font-headline uppercase tracking-wider text-[0.75rem] text-white/70 hover:text-primary-container transition-colors hover:bg-surface-container-high hover:translate-y-[2px] transition-all" href="#mechanics">EQUIPMENT</a>
-        <a class="font-headline uppercase tracking-wider text-[0.75rem] text-white/70 hover:text-primary-container transition-colors hover:bg-surface-container-high hover:translate-y-[2px] transition-all" href="#classes">GUILDS</a>
-        <a class="font-headline uppercase tracking-wider text-[0.75rem] text-white/70 hover:text-primary-container transition-colors hover:bg-surface-container-high hover:translate-y-[2px] transition-all" href="#lore">LORE</a>
-    </div>
-    <div class="flex items-center gap-4">
-        <a href="{{ route('login') }}" class="font-headline uppercase tracking-wider text-[0.75rem] text-primary-container hover:bg-surface-container-high hover:translate-y-[2px] transition-all active:translate-y-[4px] active:shadow-none">LOGIN</a>
-        <a href="{{ route('login') }}">
-            <span class="material-symbols-outlined text-primary-container cursor-pointer hover:bg-surface-container-high transition-all p-1" style="font-variation-settings: 'FILL' 1;">account_circle</span>
-        </a>
-    </div>
-</nav>
 
 {{-- ============================================================
      MAIN CONTENT WRAPPER
@@ -60,9 +40,9 @@
 <main class="max-w-7xl mx-auto px-6 pt-24">
 
     {{-- ============================================================
-         SECTION 1: HERO
+         SECTION 1: QUESTS
          ============================================================ --}}
-    <section id="hero" class="min-h-[819px] flex flex-col lg:flex-row items-center justify-between py-16 gap-12">
+    <section id="quests" class="min-h-[819px] flex flex-col lg:flex-row items-center justify-between py-16 gap-12">
         <div class="w-full lg:w-1/2 space-y-8 z-10">
             <div class="inline-block px-4 py-2 bg-surface-container-high border-2 border-outline-variant">
                 <span class="font-label text-xs tracking-wider text-secondary-container uppercase">System initialized</span>
@@ -179,7 +159,7 @@
     {{-- ============================================================
          SECTION 3: SYSTEM MECHANICS (Bento Grid)
          ============================================================ --}}
-    <section id="mechanics" class="py-24 border-t-2 border-outline-variant border-dashed">
+    <section id="equipment" class="py-24 border-t-2 border-outline-variant border-dashed">
         <h2 class="font-headline text-3xl text-center text-primary-container uppercase tracking-wider mb-16 drop-shadow-[4px_4px_0_rgba(0,0,0,1)] scroll-reveal">
             System Mechanics
         </h2>
@@ -264,7 +244,7 @@
     {{-- ============================================================
          SECTION 4: CHOOSE YOUR CLASS
          ============================================================ --}}
-    <section id="classes" class="py-24">
+    <section id="guilds" class="py-24">
         <h2 class="font-headline text-3xl text-center text-primary-container uppercase tracking-wider mb-20 drop-shadow-[4px_4px_0_rgba(0,0,0,1)] scroll-reveal">
             Choose Your Class
         </h2>
@@ -356,21 +336,6 @@
 
 </main>
 
-{{-- ============================================================
-     FOOTER
-     ============================================================ --}}
-<footer class="w-full py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-8 bg-surface-container-low border-t-4 border-black">
-    <div class="font-headline text-primary-container text-sm">QUESTLEARN</div>
-    <div class="flex flex-wrap justify-center gap-6 font-body text-lg tracking-wide text-slate-400">
-        <a class="hover:text-primary-container transition-colors hover:translate-x-1 duration-75" href="#">PRIVACY</a>
-        <a class="hover:text-primary-container transition-colors hover:translate-x-1 duration-75" href="#">TERMS</a>
-        <a class="hover:text-primary-container transition-colors hover:translate-x-1 duration-75" href="#">SUPPORT</a>
-        <a class="hover:text-primary-container transition-colors hover:translate-x-1 duration-75" href="#">DISCORD</a>
-    </div>
-    <div class="font-body text-lg tracking-wide text-slate-400">
-        &copy; {{ date('Y') }} QUESTLEARN HUD — LEVEL UP YOUR KNOWLEDGE
-    </div>
-</footer>
 
 {{-- ============================================================
      SCROLL REVEAL SCRIPT
